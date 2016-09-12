@@ -1,0 +1,25 @@
+﻿  Main.cpp
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(102): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(103): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(104): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(133): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(139): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(145): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(151): warning C4244: '+=': conversion from 'double' to 'int', possible loss of data
+sfw_d.lib(gl_core_4_4.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw_d.lib(gl_core_4_4.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\nsfw2draw.pdb'; linking object as if no debug info
+sfw_d.lib(crenderutils.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw_d.lib(crenderutils.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\nsfw2draw.pdb'; linking object as if no debug info
+sfw_d.lib(sfwdraw.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw_d.lib(sfwdraw.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\nsfw2draw.pdb'; linking object as if no debug info
+sfw_d.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(wgl_context.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(winmm_joystick.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(winmm_joystick.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(win32_window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_window.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(win32_tls.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_tls.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(win32_time.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_time.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_monitor.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(win32_init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_init.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(window.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(monitor.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(input.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(input.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(init.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+sfw_d.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(context.obj)' or at 'c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\glfw.pdb'; linking object as if no debug info
+  Pong_Wars.vcxproj -> c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\Pong_Wars.exe
+  Pong_Wars.vcxproj -> c:\users\aaron.andrews\documents\visual studio 2015\Projects\Pong_Wars\Debug\Pong_Wars.pdb (Full PDB)
