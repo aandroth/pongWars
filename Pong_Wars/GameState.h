@@ -27,8 +27,6 @@ private:
 	bool paddleLeftAndBallCollision(Paddle padd, Ball ball);
 	bool paddleTopAndBallCollision(Paddle padd, Ball ball);
 	bool paddleBottomAndBallCollision(Paddle padd, Ball ball);
-	bool paddleAndBallCollisionX(Paddle, Ball);
-	bool paddleAndBallCollisionY(Paddle, Ball);
 };
 
 GameState::GameState()
@@ -39,26 +37,9 @@ GameState::GameState()
 
 	gameIsActive = true;
 
-	playerPaddle.texture = sfw::loadTextureMap("./Images/Paddle.png", 10, 50);
-	playerPaddle.xPos = 100;
-	playerPaddle.yPos = 200;
-	playerPaddle.width = 10;
-	playerPaddle.height = 100;
-	playerPaddle.speed = 8;
-
-	enemyPaddle.texture = sfw::loadTextureMap("./Images/Paddle.png", 10, 50);
-	enemyPaddle.xPos = 700;
-	enemyPaddle.yPos = 200;
-	enemyPaddle.width = 10;
-	enemyPaddle.height = 100;
-	enemyPaddle.speed = 8;
-
-	gameBall.xPos = 200;
-	gameBall.yPos = 250;
-	gameBall.xVel = 9;
-	gameBall.yVel = 9;
-	gameBall.radius = 10;
-	gameBall.color = WHITE;
+	playerPaddle.setPlayerPaddle_Normal();
+	enemyPaddle.setEnemyPaddle_Normal();
+	gameBall.setBall_Normal();
 
 	font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
 
@@ -70,11 +51,11 @@ void GameState::update()
 	playerPoints += 1;
 
 	// Move Enemy paddle
-	if (enemyPaddle.yPos < gameBall.yPos)
+	if (enemyPaddle.get_yPos() < gameBall.get_yPos())
 	{
 		enemyPaddle.moveUp(ceilingValue);
 	}
-	else if (enemyPaddle.yPos - enemyPaddle.height > gameBall.yPos)
+	else if (enemyPaddle.get_yPos() - enemyPaddle.get_height() > gameBall.get_yPos())
 	{
 		enemyPaddle.moveDown(floorValue);
 	}
@@ -93,15 +74,15 @@ void GameState::update()
 	paddleCollisionController(enemyPaddle, &gameBall);
 	boundaryCollisionController(&gameBall, ceilingValue, floorValue);
 
-	gameBall.xPos += gameBall.xVel;
-	gameBall.yPos += gameBall.yVel;
+	gameBall.set_xPos(gameBall.get_xPos() + gameBall.get_xVel());
+	gameBall.set_yPos(gameBall.get_yPos() + gameBall.get_yVel());
 }
 
 void GameState::draw()
 {
-	sfw::drawTexture(playerPaddle.texture, playerPaddle.xPos, playerPaddle.yPos, playerPaddle.width, playerPaddle.height, 0, false, 0, WHITE);
-	sfw::drawTexture(enemyPaddle.texture, enemyPaddle.xPos, enemyPaddle.yPos, enemyPaddle.width, enemyPaddle.height, 0, false, 0, RED);
-	sfw::drawCircle(gameBall.xPos, gameBall.yPos, gameBall.radius, 12, gameBall.color);
+	sfw::drawTexture(sfw::loadTextureMap("./Images/Paddle.png", 10, 50), playerPaddle.get_xPos(), playerPaddle.get_yPos(), playerPaddle.get_width(), playerPaddle.get_height(), 0, false, 0, WHITE);
+	sfw::drawTexture(sfw::loadTextureMap("./Images/Paddle.png", 10, 50), enemyPaddle.get_xPos(), enemyPaddle.get_yPos(), enemyPaddle.get_width(), enemyPaddle.get_height(), 0, false, 0, RED);
+	sfw::drawCircle(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), 12, gameBall.get_color());
 
 	sfw::drawString(font, std::to_string(playerPoints).c_str(), 0, 600, 48, 48, 0, ' ');
 }
@@ -109,24 +90,68 @@ void GameState::draw()
 
 void GameState::boundaryCollisionController(Ball * ball, int ceilingVal, int floorVal)
 {
-	if (gameBall.xPos + gameBall.radius > 800)
+	int b_X = ball->get_xPos(), b_vel_X = ball->get_xVel();
+	int b_Y = ball->get_yPos(), b_vel_Y = ball->get_yVel();
+
+	if (b_X + gameBall.get_radius() > 800)
 	{
-		gameBall.xVel = -gameBall.xVel;
+		gameBall.set_xVel(-b_vel_X);
 	}
-	else if (gameBall.xPos < 0)
+	else if (b_X < 0)
 	{
 		//gameIsActive = false;
-		gameBall.xVel = -gameBall.xVel;
+		gameBall.set_xVel(-b_vel_X);
 	}
 
-	if ((gameBall.yPos + gameBall.radius >= ceilingVal) ||
-		(gameBall.yPos - gameBall.radius <= floorVal))
+	if (b_Y + gameBall.get_radius() >= ceilingVal)
 	{
-		gameBall.yVel = -gameBall.yVel;
+		gameBall.set_yVel(-b_vel_Y);
+		gameBall.set_yPos(b_Y - 10);
+	}
+	else if (b_Y - gameBall.get_radius() <= floorVal)
+	{
+		gameBall.set_yVel(-b_vel_Y);
+		gameBall.set_yPos(b_Y + 10);
 	}
 }
 
 void GameState::paddleCollisionController(Paddle padd, Ball * ball)
+{
+	int b_X = ball->get_xPos(), b_vel_X = ball->get_xVel();
+	int b_Y = ball->get_yPos(), b_vel_Y = ball->get_yVel();
+
+	if (paddleRightAndBallCollision(padd, *ball))
+	{
+		ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
+		ball->set_xVel(-b_vel_X);
+		ball->set_xPos(b_X + 10);
+	}
+	else if (paddleLeftAndBallCollision(padd, *ball))
+	{
+		ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
+		ball->set_xVel(-b_vel_X);
+		ball->set_xPos(b_X - 10);
+	}
+	if (paddleTopAndBallCollision(padd, *ball))
+	{
+		ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
+		ball->set_yVel(-b_vel_Y);
+		ball->set_yPos(b_Y + 10);
+	}
+	else if (paddleBottomAndBallCollision(padd, *ball))
+	{
+		ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
+		ball->set_yVel(-b_vel_Y);
+		ball->set_yPos(b_Y - 10);
+	}
+}
+
+// Find normal of plane
+
+// 
+
+/*
+void paddleCollisionController(Paddle padd, Ball * ball)
 {
 	if (paddleRightAndBallCollision(padd, *ball))
 	{
@@ -152,45 +177,19 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 		ball->yVel = -ball->yVel;
 		ball->yPos -= 10;
 	}
-}
-
-// Find normal of plane
-
-// 
-
-/*
-void paddleCollisionController(Paddle padd, Ball * ball)
-{
-if (paddleRightAndBallCollision(padd, *ball))
-{
-ball->yVel += padd.yVel / 2.0;
-ball->xVel = -ball->xVel;
-ball->xPos += 10;
-}
-else if (paddleLeftAndBallCollision(padd, *ball))
-{
-ball->yVel += padd.yVel / 2.0;
-ball->xVel = -ball->xVel;
-ball->xPos -= 10;
-}
-if (paddleTopAndBallCollision(padd, *ball))
-{
-ball->yVel += padd.yVel * 2.0;
-ball->yVel = -ball->yVel;
-ball->yPos += 10;
-}
-else if (paddleBottomAndBallCollision(padd, *ball))
-{
-ball->yVel += padd.yVel * 2.0;
-ball->yVel = -ball->yVel;
-ball->yPos -= 10;
-}
 }*/
 
 bool GameState::paddleRightAndBallCollision(Paddle padd, Ball ball)
 {
-	if ((ball.xPos - ball.radius < padd.xPos + padd.width && ball.xPos - ball.radius > padd.xPos) &&
-		((ball.yPos - ball.radius > padd.yPos - padd.height && ball.yPos - ball.radius < padd.yPos) || (ball.yPos + ball.radius > padd.yPos - padd.height && ball.yPos + ball.radius < padd.yPos)))
+	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
+	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
+	int b_R = ball.get_radius();
+
+	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
+	int p_W = padd.get_width(), p_H = padd.get_height();
+
+	if ((b_X - b_R < p_X + p_W && b_X - b_R > p_X) &&
+		((b_Y - b_R > p_Y - p_H && b_Y - b_R < p_Y) || (b_Y + b_R > p_Y - p_H && b_Y + b_R < p_Y)))
 	{
 		return true;
 	}
@@ -199,8 +198,15 @@ bool GameState::paddleRightAndBallCollision(Paddle padd, Ball ball)
 
 bool GameState::paddleLeftAndBallCollision(Paddle padd, Ball ball)
 {
-	if ((ball.xPos + ball.radius < padd.xPos + padd.width && ball.xPos + ball.radius > padd.xPos) &&
-		((ball.yPos - ball.radius > padd.yPos - padd.height && ball.yPos - ball.radius < padd.yPos) || (ball.yPos + ball.radius > padd.yPos - padd.height && ball.yPos + ball.radius < padd.yPos)))
+	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
+	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
+	int b_R = ball.get_radius();
+
+	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
+	int p_W = padd.get_width(), p_H = padd.get_height();
+
+	if ((b_X + b_R < p_X + p_W && b_X + b_R > p_X) &&
+		((b_Y - b_R > p_Y - p_H && b_Y - b_R < p_Y) || (b_Y + b_R > p_Y - p_H && b_Y + b_R < p_Y)))
 	{
 		return true;
 	}
@@ -209,8 +215,15 @@ bool GameState::paddleLeftAndBallCollision(Paddle padd, Ball ball)
 
 bool GameState::paddleTopAndBallCollision(Paddle padd, Ball ball)
 {
-	if ((padd.yPos < ball.yPos + ball.radius && padd.yPos > ball.yPos - ball.radius) &&
-		((padd.xPos > ball.xPos - ball.radius && padd.xPos < ball.xPos + ball.radius) || (padd.xPos + padd.width > ball.xPos - ball.radius && padd.xPos + padd.width < ball.xPos + ball.radius)))
+	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
+	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
+	int b_R = ball.get_radius();
+
+	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
+	int p_W = padd.get_width(), p_H = padd.get_height();
+
+	if ((p_Y < b_Y + b_R && p_Y > b_Y - b_R) &&
+		((p_X > b_X - b_R && p_X < b_X + b_R) || (p_X + p_W > b_X - b_R && p_X + p_W < b_X + b_R)))
 	{
 		return true;
 	}
@@ -219,38 +232,17 @@ bool GameState::paddleTopAndBallCollision(Paddle padd, Ball ball)
 
 bool GameState::paddleBottomAndBallCollision(Paddle padd, Ball ball)
 {
-	if ((padd.yPos - padd.height < ball.yPos + ball.radius && padd.yPos - padd.height > ball.yPos - ball.radius) &&
-		((padd.xPos > ball.xPos - ball.radius && padd.xPos < ball.xPos + ball.radius) || (padd.xPos + padd.width > ball.xPos - ball.radius && padd.xPos + padd.width < ball.xPos + ball.radius)))
+	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
+	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
+	int b_R = ball.get_radius();
+
+	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
+	int p_W = padd.get_width(), p_H = padd.get_height();
+
+	if ((p_Y - p_H < b_Y + b_R && p_Y - p_H > b_Y - b_R) &&
+		((p_X > b_X - b_R && p_X < b_X + b_R) || (p_X + p_W > b_X - b_R && p_X + p_W < b_X + b_R)))
 	{
 		return true;
 	}
-	return false;
-}
-
-bool GameState::paddleAndBallCollisionX(Paddle padd, Ball ball)
-{
-	// Detect if the ball hit the front face of the paddle
-
-	if (((gameBall.yPos + gameBall.radius >= padd.yPos - padd.height && gameBall.yPos + gameBall.radius <= padd.yPos) || // Ball top is between y's of paddle
-		(gameBall.yPos - gameBall.radius >= padd.yPos - padd.height && gameBall.yPos - gameBall.radius <= padd.yPos)) && // Ball bottom is between y's of paddle
-		((gameBall.xPos - gameBall.radius <= padd.xPos + padd.width && gameBall.xPos - gameBall.radius >= padd.xPos) || // Ball left is between x's of paddle
-		(gameBall.xPos + gameBall.radius <= padd.xPos + padd.width && gameBall.xPos + gameBall.radius >= padd.xPos)))    // Ball right is between x's of paddle
-	{
-		return true;
-	}
-	return false;
-}
-
-bool GameState::paddleAndBallCollisionY(Paddle padd, Ball ball)
-{
-	// Detect if the ball hit the top or bottom face of the paddle
-	if (((padd.xPos >= gameBall.xPos - gameBall.radius && padd.xPos <= gameBall.xPos + gameBall.radius) || // Ball top is between y's of paddle
-		(padd.xPos + padd.width >= gameBall.xPos - gameBall.radius && padd.xPos + padd.width <= gameBall.xPos + gameBall.radius)) && // Ball bottom is between y's of paddle
-		((padd.yPos >= gameBall.yPos - gameBall.radius && padd.yPos <= gameBall.yPos + gameBall.radius) || // Ball top is between y's of paddle
-		(padd.yPos - padd.height >= gameBall.yPos - gameBall.radius && padd.yPos - padd.height <= gameBall.yPos + gameBall.radius)))    // Ball right is between x's of paddle
-	{
-		return true;
-	}
-
 	return false;
 }
