@@ -131,7 +131,6 @@ int Paddle::get_height() const
 	return height;
 }
 
-
 void Paddle::set_speed(int newS)
 {
 	speed = newS;
@@ -155,5 +154,5 @@ unsigned Paddle::get_color() const
 }
 unsigned Paddle::get_texture() const
 {
-	return height;
+	return texture;
 }
