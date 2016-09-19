@@ -70,7 +70,7 @@ void Paddle::moveDown(int floorValue)
 
 void Paddle::setPlayerPaddle_Normal()
 {
-	texture = sfw::loadTextureMap("./Images/Paddle.png", 10, 50);
+	texture = sfw::loadTextureMap("./Images/Stripes.png", 10, 50);
 	xPos = 100;
 	yPos = 200;
 	width = 10;

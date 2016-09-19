@@ -5,6 +5,13 @@
 
 bool gameIsActive = true;
 
+
+
+int usesRemaining(float manaPool, float costPerCast)
+{
+	return floor(manaPool / costPerCast);
+}
+
 void main()
 {
 	// Create the window
@@ -19,6 +26,7 @@ void main()
 	Splash splash;
 	splash.init(font);
 
+	printf("%d", usesRemaining(6.2, 1.9));
 	// Start the GameState loop
 	while (gameIsActive && sfw::stepContext())
 	{
