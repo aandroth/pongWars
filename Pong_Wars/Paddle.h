@@ -3,6 +3,7 @@
 #include "sfwdraw.h"
 #include <string>
 using std::string;
+#include <iostream>
 
 class Paddle
 {
@@ -49,9 +50,10 @@ void Paddle::moveUp(int ceilingValue)
 	}
 	else
 	{
-		yPos += speed;
 		yVel = speed;
+		yPos += yVel;
 	}
+	std::cout << yVel << std::endl;
 }
 
 void Paddle::moveDown(int floorValue)
@@ -63,14 +65,14 @@ void Paddle::moveDown(int floorValue)
 	}
 	else
 	{
-		yPos -= speed;
 		yVel = -speed;
+		yPos += yVel;
 	}
 }
 
 void Paddle::setPlayerPaddle_Normal()
 {
-	texture = sfw::loadTextureMap("./Images/Stripes.png", 10, 50);
+	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	xPos = 100;
 	yPos = 200;
 	width = 10;
@@ -80,7 +82,7 @@ void Paddle::setPlayerPaddle_Normal()
 
 void Paddle::setEnemyPaddle_Normal()
 {
-	texture = sfw::loadTextureMap("./Images/Paddle.png", 10, 50);
+	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	xPos = 700;
 	yPos = 200;
 	width = 10;

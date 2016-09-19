@@ -15,8 +15,7 @@ public:
 
 private:
 	Paddle playerPaddle, enemyPaddle;
-	unsigned int paddleTexture = sfw::loadTextureMap("./Images/Paddle.png", 10, 50);
-	unsigned background = sfw::loadTextureMap("./Images/Background.png", 10, 50);
+	unsigned background = sfw::loadTextureMap("./Images/Background.png");
 	Ball gameBall;
 	unsigned font, playerPoints;
 	int ceilingValue = 600, floorValue = 10;
@@ -44,8 +43,6 @@ GameState::GameState()
 	gameBall.setBall_Normal();
 
 	font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
-
-	sfw::setBackgroundColor(BLACK);
 }
 
 void GameState::update()
@@ -61,6 +58,10 @@ void GameState::update()
 	{
 		enemyPaddle.moveDown(floorValue);
 	}
+	else
+	{
+		enemyPaddle.set_yVel(0);
+	}
 
 	// Move Player paddle
 	if (sfw::getKey(KEY_UP))
@@ -70,6 +71,10 @@ void GameState::update()
 	else if (sfw::getKey(KEY_DOWN))
 	{
 		playerPaddle.moveDown(floorValue);
+	}
+	else
+	{
+		playerPaddle.set_yVel(0);
 	}
 
 	paddleCollisionController(playerPaddle, &gameBall);
@@ -82,11 +87,12 @@ void GameState::update()
 
 void GameState::draw()
 {
-	sfw::drawTexture(background, 0, 0, 800, 600, 0, false, 0, RED);
+	sfw::drawTexture(background, 400, 300, 800, 600);
 	sfw::drawTexture(playerPaddle.get_texture(), playerPaddle.get_xPos(), playerPaddle.get_yPos(), playerPaddle.get_width(), playerPaddle.get_height(), 0, false, 0, CYAN);
 	sfw::drawTexture(enemyPaddle.get_texture(), enemyPaddle.get_xPos(), enemyPaddle.get_yPos(), enemyPaddle.get_width(), enemyPaddle.get_height(), 0, false, 0, RED);
 
-	sfw::drawCircle(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), 12, gameBall.get_color());
+	//sfw::drawCircle(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), 12, gameBall.get_color());
+	sfw::drawTexture(background, gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), gameBall.get_radius());
 	sfw::drawLine(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_xVel()*2 + gameBall.get_xPos(), gameBall.get_yVel()*2 + gameBall.get_yPos(), RED);
 	sfw::drawString(font, std::to_string(playerPoints).c_str(), 0, 600, 48, 48, 0, ' ');
 	
@@ -131,7 +137,7 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 		//ball->set_xPos(b_X + 10);
 
 		// Find normal of plane
-		int x_Normal = -padd.get_height();
+		int x_Normal = padd.get_height();
 		int y_Normal = 0;		
 		x_Normal = x_Normal / (x_Normal + y_Normal);
 		y_Normal = y_Normal / (x_Normal + y_Normal);
@@ -142,6 +148,7 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 		// Reflect the ball's vector
 		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
 		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
+		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
 	}
 	else if (paddleLeftAndBallCollision(padd, *ball))
 	{
@@ -161,6 +168,7 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 		// Reflect the ball's vector
 		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
 		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
+		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
 	}
 	if (paddleTopAndBallCollision(padd, *ball))
 	{
@@ -170,16 +178,17 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 
 		// Find normal of plane
 		int x_Normal = 0;
-		int y_Normal = padd.get_width();
+		int y_Normal = -padd.get_width();
 		x_Normal = x_Normal / (x_Normal + y_Normal);
 		y_Normal = y_Normal / (x_Normal + y_Normal);
 
 		// Move ball out of paddle
-		ball->set_yPos(padd.get_yPos() - ball->get_radius());
+		ball->set_yPos(padd.get_yPos() + ball->get_radius());
 
 		// Reflect the ball's vector
 		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
 		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
+		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
 	}
 	else if (paddleBottomAndBallCollision(padd, *ball))
 	{
@@ -194,11 +203,12 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 		y_Normal = y_Normal / (x_Normal + y_Normal);
 
 		// Move ball out of paddle
-		ball->set_xPos(padd.get_yPos() - padd.get_height() - ball->get_radius());
+		ball->set_yPos(padd.get_yPos() - padd.get_height() - ball->get_radius());
 
 		// Reflect the ball's vector
 		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
 		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
+		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
 	}
 }
 

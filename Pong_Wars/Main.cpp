@@ -21,7 +21,7 @@ void main()
 	GameState activeGame;
 
 	unsigned font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
-
+	unsigned background = sfw::loadTextureMap("./Images/Background.png", 1, 1);
 	APP_STATE state = ENTER_SPLASH;
 	Splash splash;
 	splash.init(font);

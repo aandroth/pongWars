@@ -1,8 +1,12 @@
 ﻿  Main.cpp
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(86): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(87): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(89): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(90): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(92): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(95): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(151): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(171): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(191): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\gamestate.h(211): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\main.cpp(12): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\main.cpp(29): warning C4305: 'argument': truncation from 'double' to 'float'
   Pong_Wars.vcxproj -> C:\Users\aaron.andrews\Documents\Visual Studio 2015\Projects\Pong_Wars\Debug\Pong_Wars.exe
