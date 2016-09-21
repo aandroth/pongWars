@@ -3,6 +3,7 @@
 #include "Splash.h"
 #include "Menu.h"
 #include "GameOver.h"
+#include "Credits.h"
 #include <iostream>
 
 bool gameIsActive = true;
@@ -32,6 +33,7 @@ int main()
 	splash.init(font);
 	Menu menu;
 	GameOver gameOver;
+	CreditsScreen credits;
 
 	// Start the GameState loop
 	while (gameIsActive && sfw::stepContext())
@@ -43,7 +45,14 @@ int main()
 			menu.draw();
 			if (menu.next() == STAY){}
 			else if (menu.next() == PLAY) { state = ENTER_SPLASH; }
+			else if (menu.next() == CREDITS) { credits.init(); state = SHOW_CREDITS; }
 			else { return 0; }
+			break;
+		case SHOW_CREDITS:
+			credits.draw();
+			credits.step();
+			if (credits.next()) {}
+			else { menu.init(); state = MENU; }
 			break;
 		case ENTER_SPLASH:
 			splash.play();

@@ -34,7 +34,7 @@ void GameOver::init(unsigned font)
 
 void GameOver::draw()
 {
-	sfw::drawString(font, "Game Over", 100, 450, 50, 50, 0, ' ');
+	sfw::drawString(font, "Game Over", 100, 550, 50, 50, 0, ' ');
 	sfw::drawTexture(exit_button, 250 + 100, 100 + 50, 200, 100);
 	sfw::drawTexture(exit_button, sfw::getMouseX(), sfw::getMouseY(), 10, 10);
 }
