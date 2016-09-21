@@ -27,15 +27,17 @@ public:
 
 	void set_color(unsigned int);
 	int get_color() const;
+
+	unsigned int get_texture();
 };
 
 void Ball::setBall_Normal()
 {
 	xPos = 107;
-	yPos = 550;
-	xVel = 5;
+	yPos = 300;
+	xVel = -5;
 	yVel = 0;
-	radius = 10;
+	radius = 50;
 	color = WHITE;
 	texture = sfw::loadTextureMap("./Images/Ball.png");
 }
@@ -59,17 +61,17 @@ int Ball::get_yPos() const
 
 void Ball::set_xVel(int newX)
 {
-	if (abs(newX) > 45)
+	if (abs(newX) > 20)
 	{
-		newX = 45 * (newX/abs(newX));
+		newX = 20 * (newX/abs(newX));
 	}
 	xVel = newX;
 }
 void Ball::set_yVel(int newY)
 {
-	if (abs(newY) > 45)
+	if (abs(newY) > 20)
 	{
-		newY = 45 * (newY / abs(newY));
+		newY = 20 * (newY / abs(newY));
 	}
 	yVel = newY;
 }
@@ -98,4 +100,9 @@ void Ball::set_color(unsigned int newC)
 int Ball::get_color() const
 {
 	return color;
+}
+
+unsigned int Ball::get_texture()
+{
+	return texture;
 }
