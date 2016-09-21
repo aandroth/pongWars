@@ -1,16 +1,13 @@
 #include "sfwdraw.h"
 #include "GameState.h"
 #include "Splash.h"
+#include "Menu.h"
+#include "GameOver.h"
 #include <iostream>
 
 bool gameIsActive = true;
 
-int usesRemaining(float manaPool, float costPerCast)
-{
-	return floor(manaPool / costPerCast);
-}
-
-void main()
+int main()
 {
 	// Create the window
 	sfw::initContext(800, 600, "NSFW Draw");
@@ -30,21 +27,24 @@ void main()
 	//float t1 = (-b + sqrt(b*b - 4 * a*c)) / (2 * a);
 	//float t2 = (-b - sqrt(b*b - 4 * a*c)) / (2 * a);
 
-
-
-	APP_STATE state = ENTER_SPLASH;
+	APP_STATE state = MENU;
 	Splash splash;
 	splash.init(font);
+	Menu menu;
+	GameOver gameOver;
 
-	printf("%d", usesRemaining(6.2, 1.9));
 	// Start the GameState loop
 	while (gameIsActive && sfw::stepContext())
 	{
-
-
-		
 		switch (state)
 		{
+		case MENU:
+			menu.step();
+			menu.draw();
+			if (menu.next() == STAY){}
+			else if (menu.next() == PLAY) { state = ENTER_SPLASH; }
+			else { return 0; }
+			break;
 		case ENTER_SPLASH:
 			splash.play();
 			state = SPLASH;
@@ -53,62 +53,27 @@ void main()
 			splash.draw();
 			state = splash.next(state);
 			break;
-		case GAMEPLAY:
+		case ENTER_GAMEPLAY:
 			activeGame.update();
 			activeGame.draw();
 			break;
-		case EXIT:
-			gameIsActive = false;
+		case GAMEPLAY:
+			activeGame.update();
+			activeGame.draw();
+			if (activeGame.gameplayIsActive()) {}
+			else { state = GAMEOVER; }
 			break;
+		case GAMEOVER:
+			gameOver.step();
+			gameOver.draw();
+			if (gameOver.next()) {}
+			else { state = EXIT; }
+			break;
+		case EXIT:
+			return 0;
 		}
-
-	//// Move Player paddle
-	//if (sfw::getKey(KEY_UP))
-	//{
-	//	++liney2;
-	//}
-	//else if (sfw::getKey(KEY_DOWN))
-	//{
-	//	--liney2;
-	//}
-
-
-	//if (sfw::getKey(KEY_LEFT))
-	//{
-	//	++linex2;
-	//}
-	//else if (sfw::getKey(KEY_RIGHT))
-	//{
-	//	--linex2;
-	//}
-
-	//a = (linex2 - linex1)*(linex2 - linex1) + (liney2 - liney1)*(liney2 - liney1);
-	//b = 2 * (linex2 - linex1)*(linex1 - circlex) + 2 * (liney2 - liney1)*(liney1 - circley);
-	//c = (linex1 - circlex)*(linex1 - circlex) + (liney1 - circley)*(liney1 - circley) - (circleradius*circleradius);
-	//t1 = (-b + sqrt(b*b - 4 * a*c)) / (2 * a);
-	//t2 = (-b - sqrt(b*b - 4 * a*c)) / (2 * a);
-
-	//	sfw::drawCircle(circlex, circley, circleradius, 12, WHITE);
-	//	sfw::drawLine(linex1, liney1, linex2, liney2, RED);
-
-	//	
-	//	sfw::drawCircle((t2*(linex2 - linex1) + linex1), (t2*(liney2 - liney1) + liney1), 5, 12, YELLOW);
-	//	sfw::drawCircle((t1*(linex2 - linex1) + linex1), (t1*(liney2 - liney1) + liney1), 5, 12, YELLOW);
-
-	//	sfw::drawString(font, std::to_string(t1).c_str(), 0, 600, 48, 48, 0, ' ');
-	//	sfw::drawString(font, std::to_string(t2).c_str(), 0, 500, 48, 48, 0, ' ');
-
-	//	if ((t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1))
-	//	{
-	//		sfw::drawString(font, "Hit", 0, 400, 48, 48, 0, ' ');
-	//	}
-	//	else
-	//	{
-	//		sfw::drawString(font, "Miss", 0, 400, 48, 48, 0, ' ');
-	//	}
 	}
 	
-
-
 	sfw::termContext();
+	return 0;
 }
