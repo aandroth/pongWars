@@ -155,5 +155,5 @@ unsigned Paddle::get_color() const
 }
 unsigned Paddle::get_texture() const
 {
-	return height;
+	return texture;
 }
