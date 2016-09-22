@@ -1,25 +1,33 @@
-﻿Build started 9/15/2016 10:30:15 PM.
+﻿Build started 9/21/2016 7:56:14 AM.
      1>Project "C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Pong_Wars\Pong_Wars.vcxproj" on node 2 (Build target(s)).
-     1>Link:
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Isfw_d.lib /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
+         Main.cpp
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(78): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(97): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(156): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(158): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(160): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(261): warning C4018: '<': signed/unsigned mismatch
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(263): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(264): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(265): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(92): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(103): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(104): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(150): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(151): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(166): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(167): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(12): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(42): warning C4305: 'argument': truncation from 'double' to 'float'
+       Link:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" sfw_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.lib" /MACHINE:X86 Debug\Main.obj
-     1>sfw_d.lib(gl_core_4_4.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw_d.lib(gl_core_4_4.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\nsfw2draw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(crenderutils.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw_d.lib(crenderutils.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\nsfw2draw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(sfwdraw.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw_d.lib(sfwdraw.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\nsfw2draw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(wgl_context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(wgl_context.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(winmm_joystick.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(winmm_joystick.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(win32_window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_window.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(win32_tls.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_tls.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(win32_time.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_time.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(win32_monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_monitor.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(win32_init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(win32_init.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(window.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(window.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(monitor.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(monitor.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(input.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(input.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(init.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(init.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
-     1>sfw_d.lib(context.obj) : warning LNK4099: PDB 'glfw.pdb' was not found with 'sfw_d.lib(context.obj)' or at 'C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\glfw.pdb'; linking object as if no debug info
          Pong_Wars.vcxproj -> C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.exe
      1>Done Building Project "C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Pong_Wars\Pong_Wars.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:00.44
+Time Elapsed 00:00:01.10
