@@ -1,4 +1,4 @@
-﻿Build started 9/21/2016 7:56:14 AM.
+﻿Build started 9/23/2016 3:59:11 PM.
      1>Project "C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Pong_Wars\Pong_Wars.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\CL.exe /c /Isfw_d.lib /I"C:\Program Files (x86)\Visual Leak Detector\include" /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"Debug\\" /Fd"Debug\vc140.pdb" /Gd /TP /analyze- /errorReport:prompt Main.cpp
@@ -12,22 +12,46 @@
      1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(263): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
      1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(264): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
      1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\paddle.h(265): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(91): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
      1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(92): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
      1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(93): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(94): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(103): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(104): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(150): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(151): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(166): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(167): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(12): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
-     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(42): warning C4305: 'argument': truncation from 'double' to 'float'
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.exe" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Visual Leak Detector\lib\Win32" sfw_d.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.lib" /MACHINE:X86 Debug\Main.obj
-         Pong_Wars.vcxproj -> C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Debug\Pong_Wars.exe
-     1>Done Building Project "C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Pong_Wars\Pong_Wars.vcxproj" (Build target(s)).
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(101): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(147): error C2059: syntax error: '<<'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(149): error C2143: syntax error: missing ';' before '{'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(154): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(155): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(170): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(171): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(205): error C2059: syntax error: '=='
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(241): error C2143: syntax error: missing ';' before '{'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(258): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(260): error C2181: illegal else without matching if
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(278): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(298): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\gamestate.h(318): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(3): error C2059: syntax error: '<<'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\constded.h(4): error C2143: syntax error: missing ';' before '{'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\constded.h(4): error C2447: '{': missing function header (old-style formal list?)
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(16): error C3646: 'next': unknown override specifier
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(16): error C2059: syntax error: '('
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(16): error C2238: unexpected token(s) preceding ';'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(41): error C2039: 'next': is not a member of 'Splash'
+         c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(8): note: see declaration of 'Splash'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(41): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(41): error C2146: syntax error: missing ';' before identifier 'next'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(42): error C2143: syntax error: missing ';' before '{'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\splash.h(42): error C2447: '{': missing function header (old-style formal list?)
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(10): error C2059: syntax error: '>>'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(15): error C2059: syntax error: '<<'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(16): error C2143: syntax error: missing ';' before '{'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(16): error C2447: '{': missing function header (old-style formal list?)
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(20): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(24): error C2143: syntax error: missing ';' before '=='
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(24): error C2059: syntax error: '=='
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(27): error C2143: syntax error: missing ';' before '{'
+     1>c:\users\aquin\documents\visual studio 2015\projects\pongwars\pong_wars\main.cpp(27): error C2447: '{': missing function header (old-style formal list?)
+     1>Done Building Project "C:\Users\Aquin\Documents\Visual Studio 2015\Projects\pongWars\Pong_Wars\Pong_Wars.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:01.10
+Time Elapsed 00:00:00.38

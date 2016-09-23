@@ -33,12 +33,12 @@ public:
 
 void Ball::setBall_Normal()
 {
-	xPos = 107;
+	xPos = 400;
 	yPos = 300;
-	xVel = -5;
-	yVel = 0;
-	radius = 50;
-	color = WHITE;
+	xVel = 4;
+	yVel = -4;
+	radius = 20;
+	color = BLACK;
 	texture = sfw::loadTextureMap("./Images/Ball.png");
 }
 

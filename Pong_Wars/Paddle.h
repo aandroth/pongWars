@@ -106,13 +106,13 @@ void Paddle::setPlayerPaddle_Normal()
 	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	color = BLUE;
 	xPos = 100;
-	yPos = 200;
+	yPos = 350;
 	width = 10;
 	height = 100;
 	speed = 8;
 
-	pointsVec.push_back(Vec2(xPos, yPos));
-	pointsVec.push_back(Vec2(xPos, yPos - height));
+	pointsVec.push_back(Vec2(xPos,         yPos));
+	pointsVec.push_back(Vec2(xPos,         yPos - height));
 	pointsVec.push_back(Vec2(xPos + width, yPos - height));
 	pointsVec.push_back(Vec2(xPos + width, yPos));
 }
@@ -122,7 +122,7 @@ void Paddle::setEnemyPaddle_Normal()
 	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	color = RED;
 	xPos = 700;
-	yPos = 200;
+	yPos = 350;
 	width = 10;
 	height = 100;
 	speed = 8;

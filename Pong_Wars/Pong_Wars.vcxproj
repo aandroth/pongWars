@@ -159,7 +159,10 @@
   <ItemGroup>
     <ClInclude Include="Ball.h" />
     <ClInclude Include="constded.h" />
+    <ClInclude Include="Credits.h" />
+    <ClInclude Include="GameOver.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Paddle.h" />
     <ClInclude Include="sfwdraw.h" />
     <ClInclude Include="Splash.h" />
