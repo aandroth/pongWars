@@ -1,29 +1,22 @@
 #include "sfwdraw.h"
 #include "GameState.h"
-<<<<<<< HEAD
+
 //#include "Splash.h"
-=======
+
 #include "Splash.h"
 #include "Menu.h"
 #include "GameOver.h"
 #include "Credits.h"
->>>>>>> 413b7531d8f425c0dae0b44e038333fb81452f60
 #include <iostream>
 
 bool gameIsActive = true;
-
-<<<<<<< HEAD
-enum APP_STATE {SPLASH, EXIT, ENTER_SPLASH, GAMEPLAY};
 
 int usesRemaining(float manaPool, float costPerCast)
 {
 	return floor(manaPool / costPerCast);
 }
 
-void main()
-=======
 int main()
->>>>>>> 413b7531d8f425c0dae0b44e038333fb81452f60
 {
 	// Create the window
 	sfw::initContext(800, 600, "NSFW Draw");
@@ -43,21 +36,17 @@ int main()
 	//float t1 = (-b + sqrt(b*b - 4 * a*c)) / (2 * a);
 	//float t2 = (-b - sqrt(b*b - 4 * a*c)) / (2 * a);
 
-<<<<<<< HEAD
 
 
 	//APP_STATE state = ENTER_SPLASH;
-	APP_STATE state = GAMEPLAY;
 	//Splash splash;
 	//splash.init(font);
-=======
-	APP_STATE state = MENU;
+	APP_STATE state = GAMEPLAY;
 	Splash splash;
 	splash.init(font);
 	Menu menu;
 	GameOver gameOver;
 	CreditsScreen credits;
->>>>>>> 413b7531d8f425c0dae0b44e038333fb81452f60
 
 	// Start the GameState loop
 	while (gameIsActive && sfw::stepContext())
@@ -79,12 +68,12 @@ int main()
 			else { menu.init(); state = MENU; }
 			break;
 		case ENTER_SPLASH:
-			//splash.play();
+			splash.play();
 			state = SPLASH;
 		case SPLASH:
-			/*splash.step();
+			splash.step();
 			splash.draw();
-			state = splash.next(state);*/
+			state = splash.next(state);
 			break;
 		case ENTER_GAMEPLAY:
 			activeGame.update();

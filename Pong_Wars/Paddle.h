@@ -62,6 +62,8 @@ public:
 	int faceOfCollision_Inner(int, int, int);
 	int xNormalOfFaceIndex(int index);
 	int yNormalOfFaceIndex(int index);
+	int xOfPoint(int);
+	int yOfPoint(int);
 };
 
 void Paddle::moveUp(int ceilingValue)
@@ -107,7 +109,7 @@ void Paddle::setPlayerPaddle_Normal()
 	color = BLUE;
 	xPos = 100;
 	yPos = 350;
-	width = 10;
+	width = 50;
 	height = 100;
 	speed = 8;
 
@@ -123,7 +125,7 @@ void Paddle::setEnemyPaddle_Normal()
 	color = RED;
 	xPos = 700;
 	yPos = 350;
-	width = 10;
+	width = 50;
 	height = 100;
 	speed = 8;
 
@@ -138,7 +140,7 @@ void Paddle::setEnemyPaddle_AngleBracket()
 	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	color = RED;
 	xPos = 700;
-	yPos = 200;
+	yPos = 400;
 	width = 100;
 	height = 100;
 	speed = 8;
@@ -158,6 +160,8 @@ void Paddle::drawPaddle()
 		sfw::drawLine(pointsVec[ii].x, pointsVec[ii].y, pointsVec[ii+1].x, pointsVec[ii+1].y, color);
 	}
 	sfw::drawLine(pointsVec[pointsVec.size() - 1].x, pointsVec[pointsVec.size() - 1].y, pointsVec[0].x, pointsVec[0].y, color);
+
+	//sfw::drawCircle(pointsVec[1].x, pointsVec[1].y, 5, 12, BLACK);
 }
 
 void Paddle::set_xPos(int newX)
@@ -286,18 +290,36 @@ int Paddle::xNormalOfFaceIndex(int index)
 {
 	if (index != pointsVec.size()-1)
 	{
+		std::cout << "p1_x: " << pointsVec[index].x << ", p2_x: " << pointsVec[index + 1].x << std::endl;
 		return pointsVec[index + 1].y - pointsVec[index].y;
 	}
 
-	return pointsVec[index].y - pointsVec[0].y;
+	return pointsVec[0].y - pointsVec[index].y;
 }
 
 int Paddle::yNormalOfFaceIndex(int index)
 {
 	if (index != pointsVec.size() - 1)
 	{
+		std::cout << "p1_y: " << pointsVec[index].y << ", p2_y: " << pointsVec[index + 1].y << std::endl;
 		return pointsVec[index + 1].x - pointsVec[index].x;
 	}
 
-	return pointsVec[index].x - pointsVec[0].x;
+	return pointsVec[0].x - pointsVec[index].x;
+}
+
+int Paddle::xOfPoint(int index)
+{
+	if (index == pointsVec.size())
+		return pointsVec[0].x;
+
+	return pointsVec[index].x;
+}
+
+int Paddle::yOfPoint(int index)
+{
+	if (index == pointsVec.size())
+		return pointsVec[0].y;
+
+	return pointsVec[index].y;
 }

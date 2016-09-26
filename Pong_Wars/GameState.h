@@ -26,6 +26,7 @@ private:
 	// Colision detection functions
 	void boundaryCollisionController(Ball * ball, int ceilingVal, int floorVal);
 	void paddleCollisionController(Paddle padd, Ball * ball);
+	void moveBallOutsideOfPaddle(Ball, Paddle, int);
 	bool paddleRightAndBallCollision(Paddle padd, Ball ball);
 	bool paddleLeftAndBallCollision(Paddle padd, Ball ball);
 	bool paddleTopAndBallCollision(Paddle padd, Ball ball);
@@ -41,8 +42,8 @@ GameState::GameState()
 	gameIsActive = true;
 
 	playerPaddle.setPlayerPaddle_Normal();
-	enemyPaddle.setEnemyPaddle_Normal();
-	//enemyPaddle.setEnemyPaddle_AngleBracket();
+	//enemyPaddle.setEnemyPaddle_Normal();
+	enemyPaddle.setEnemyPaddle_AngleBracket();
 	gameBall.setBall_Normal();
 
 	font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
@@ -115,16 +116,17 @@ void GameState::boundaryCollisionController(Ball * ball, int ceilingVal, int flo
 
 	if (b_X + gameBall.get_radius() > 800)
 	{
-		playerPoints += 1;
-		gameBall.set_xVel(4);
-		gameBall.set_yVel(0);
-		gameBall.set_xPos(400);
-		gameBall.set_yPos(300);
+		//playerPoints += 1;
+		//gameBall.set_xVel(4);
+		//gameBall.set_yVel(0);
+		//gameBall.set_xPos(400);
+		//gameBall.set_yPos(300);
+		gameBall.set_xVel(-gameBall.get_xVel());
 	}
 	else if (b_X < 0)
 	{
-		gameIsActive = false;
-		//gameBall.set_xVel(-b_vel_X);
+		//gameIsActive = false;
+		gameBall.set_xVel(-b_vel_X);
 	}
 
 	if (b_Y + gameBall.get_radius() >= ceilingVal)
@@ -144,213 +146,72 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 	int b_X = ball->get_xPos(), b_vel_X = ball->get_xVel();
 	int b_Y = ball->get_yPos(), b_vel_Y = ball->get_yVel();
 
-<<<<<<< HEAD
 	if (padd.collidedWithBall_Outer(ball->get_xPos(), ball->get_yPos(), ball->get_radius()))
 	{
 		int faceIndex = padd.faceOfCollision_Inner(ball->get_xPos(), ball->get_yPos(), ball->get_radius());
+		std::cout << "face: " << faceIndex << std::endl;
 		if (faceIndex != -1)
-		{		
+		{
 			// Get normal of plane
 			float x_Normal = padd.xNormalOfFaceIndex(faceIndex);
-			float y_Normal = padd.yNormalOfFaceIndex(faceIndex);
+			float y_Normal = -padd.yNormalOfFaceIndex(faceIndex);
 			float normalizedX, normalizedY;
 			std::cout << "x: " << x_Normal << std::endl;
 			std::cout << "y: " << y_Normal << std::endl;
-			if (x_Normal + y_Normal == 0)
-			{
-				x_Normal = 0.5;
-				y_Normal = 0.5;
-			}
-			normalizedX = x_Normal / (x_Normal + y_Normal);
-			normalizedY = y_Normal / (x_Normal + y_Normal);
-		
+
+			normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+			normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+
 			// Reflect the ball's vector
 			std::cout << "original x: " << ball->get_xVel() << std::endl;
 			std::cout << "original y: " << ball->get_yVel() << std::endl;
-			ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*normalizedX + ball->get_yVel()*normalizedY)*normalizedX)));
-			ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*normalizedX + ball->get_yVel()*normalizedY)*normalizedY)));
+			float oldX = ball->get_xVel(), oldY = ball->get_yVel();
+			float newX = oldX - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedX);
+			float newY = oldY - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedY);
+			ball->set_xVel(newX);
+			ball->set_yVel(newY);
 			std::cout << "reflect x: " << ball->get_xVel() << std::endl;
 			std::cout << "reflect y: " << ball->get_yVel() << std::endl;
 			std::cout << "normalizedX x: " << normalizedX << std::endl;
 			std::cout << "normalizedY y: " << normalizedY << std::endl;
-			//ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.25);
+			std::cout << "normalizedY y: " << normalizedY << std::endl;
+			ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.05);
 
 			// Move ball out of paddle
-			//ball->set_xPos(ball->get_xPos() + ball->get_xVel());
-			//ball->set_yPos(ball->get_yPos() + ball->get_yVel());
+			//moveBallOutsideOfPaddle(*ball, padd, 1);
+			ball->set_xPos(ball->get_xPos() + 14 * normalizedX);
+			ball->set_yPos(ball->get_yPos() + 14 * normalizedY);
 		}
-	}
-
-	//if (paddleRightAndBallCollision(padd, *ball))
-	//{
-	//	//ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
-	//	//ball->set_xVel(-b_vel_X);
-	//	//ball->set_xPos(b_X + 10);
-
-	//	// Find normal of plane
-	//	//int x_Normal = padd.get_height();
-	//	//int y_Normal = 0;		
-	//	//x_Normal = x_Normal / (x_Normal + y_Normal);
-	//	//y_Normal = y_Normal / (x_Normal + y_Normal);
-
-	//	//// Move ball out of paddle
-	//	//ball->set_xPos(ball->get_radius() + padd.get_xPos() + padd.get_width());
-
-	//	//// Reflect the ball's vector
-	//	//ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
-	//	//ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
-	//	//ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
-	//}
-	//else if (paddleLeftAndBallCollision(padd, *ball))
-=======
-	//if (padd.collidedWithBall_Outer(ball->get_xPos(), ball->get_yPos(), ball->get_radius()))
->>>>>>> 413b7531d8f425c0dae0b44e038333fb81452f60
-	//{
-	//	int faceIndex = padd.faceOfCollision_Inner(ball->get_xPos(), ball->get_yPos(), ball->get_radius());
-	//	if (faceIndex != -1)
-	//	{		
-	//		// Get normal of plane
-	//		float x_Normal = padd.xNormalOfFaceIndex(faceIndex);
-	//		float y_Normal = padd.yNormalOfFaceIndex(faceIndex);
-	//		float normalizedX, normalizedY;
-	//		std::cout << "x: " << x_Normal << std::endl;
-	//		std::cout << "y: " << y_Normal << std::endl;
-	//		if (x_Normal + y_Normal == 0)
-	//		{
-	//			x_Normal = 0.5;
-	//			y_Normal = 0.5;
-	//		}
-	//		else
-	//		{
-	//			normalizedX = x_Normal / (x_Normal + y_Normal);
-	//			normalizedY = y_Normal / (x_Normal + y_Normal);
-	//		}
-	//	
-	//		// Reflect the ball's vector
-	//		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*normalizedX + ball->get_yVel()*normalizedY)*normalizedX)));
-	//		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*normalizedX + ball->get_yVel()*normalizedY)*normalizedY)));
-	//		//ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.25);
-
-	//		// Move ball out of paddle
-	//		ball->set_xPos(ball->get_xPos() + ball->get_xVel());
-	//		ball->set_yPos(ball->get_yPos() + ball->get_yVel());
-	//	}
-	//}
-
-	if (paddleRightAndBallCollision(padd, *ball))
-	{
-		//ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
-		//ball->set_xVel(-b_vel_X);
-		//ball->set_xPos(b_X + 10);
-
-		//Find normal of plane
-		int x_Normal = padd.get_height();
-		int y_Normal = 0;		
-		x_Normal = x_Normal / (x_Normal + y_Normal);
-		y_Normal = y_Normal / (x_Normal + y_Normal);
-
-		// Move ball out of paddle
-		ball->set_xPos(ball->get_radius() + padd.get_xPos() + padd.get_width());
-
-		// Reflect the ball's vector
-		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
-		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
-		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
-	}
-	else if (paddleLeftAndBallCollision(padd, *ball))
-	{
-		//ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
-		//ball->set_xVel(-b_vel_X);
-		//ball->set_xPos(b_X - 10);
-
-		// Find normal of plane
-		int x_Normal = -padd.get_height();
-		int y_Normal = 0;
-		x_Normal = x_Normal / (x_Normal + y_Normal);
-		y_Normal = y_Normal / (x_Normal + y_Normal);
-
-		// Move ball out of paddle
-		ball->set_xPos(padd.get_xPos() - ball->get_radius());
-
-		// Reflect the ball's vector
-		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
-		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
-		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
-	}
-	if (paddleTopAndBallCollision(padd, *ball))
-	{
-		//ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
-		//ball->set_yVel(-b_vel_Y);
-		//ball->set_yPos(b_Y + 10);
-
-		// Find normal of plane
-		int x_Normal = 0;
-		int y_Normal = -padd.get_width();
-		x_Normal = x_Normal / (x_Normal + y_Normal);
-		y_Normal = y_Normal / (x_Normal + y_Normal);
-
-		// Move ball out of paddle
-		ball->set_yPos(padd.get_yPos() + ball->get_radius());
-
-		// Reflect the ball's vector
-		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
-		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
-		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
-	}
-	else if (paddleBottomAndBallCollision(padd, *ball))
-	{
-		//ball->set_yVel(b_vel_Y + padd.get_yVel() / 2.0);
-		//ball->set_yVel(-b_vel_Y);
-		//ball->set_yPos(b_Y - 10);
-
-		// Find normal of plane
-		int x_Normal = 0;
-		int y_Normal = -padd.get_width();
-		x_Normal = x_Normal / (x_Normal + y_Normal);
-		y_Normal = y_Normal / (x_Normal + y_Normal);
-
-		// Move ball out of paddle
-		ball->set_yPos(padd.get_yPos() - padd.get_height() - ball->get_radius());
-
-		// Reflect the ball's vector
-		ball->set_xVel((ball->get_xVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*x_Normal)));
-		ball->set_yVel((ball->get_yVel() - (2 * (ball->get_xVel()*x_Normal + ball->get_yVel()*y_Normal)*y_Normal)));
-		ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.5);
 	}
 }
 
-//void GameState::paddleCollisionController(Paddle padd, Ball * ball)
-//{
-//	if (paddleRightAndBallCollision(padd, *ball))
-//	{
-//		// Find normal of plane
-//		int x_Normal = padd.get_yPos();
-//		int y_Normal = padd.get_xPos();
-//
-//		x_Normal = x_Normal / (y_Normal + x_Normal);
-//		x_Normal -= padd.get_xPos();
-//		y_Normal = y_Normal / (y_Normal + x_Normal);
-//		y_Normal -= padd.get_yPos();
-//	}
-//	else if (paddleLeftAndBallCollision(padd, *ball))
-//	{
-//		ball->yVel += padd.yVel / 2.0;
-//		ball->xVel = -ball->xVel;
-//		ball->xPos -= 10;
-//	}
-//	if (paddleTopAndBallCollision(padd, *ball))
-//	{
-//		ball->yVel += padd.yVel * 2.0;
-//		ball->yVel = -ball->yVel;
-//		ball->yPos += 10;
-//	}
-//	else if (paddleBottomAndBallCollision(padd, *ball))
-//	{
-//		ball->yVel += padd.yVel * 2.0;
-//		ball->yVel = -ball->yVel;
-//		ball->yPos -= 10;
-//	}
-//}
+void GameState::moveBallOutsideOfPaddle(Ball ball, Paddle padd, int faceIndex)
+{
+	// Get normal of plane
+	float x_Normal = -3; // padd.xNormalOfFaceIndex(faceIndex);
+	float y_Normal = -2; // -padd.yNormalOfFaceIndex(faceIndex);
+	float normalizedX, normalizedY;
+
+	normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+	normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+
+	Vec2 paddPoint0 = Vec2(3, 4);// padd.xOfPoint(faceIndex), padd.yOfPoint(faceIndex));
+	Vec2 paddPoint1 = Vec2(6, 2);// padd.xOfPoint(faceIndex + 1), padd.yOfPoint(faceIndex + 1));
+
+	float x_difference = -6; // ball.get_xPos() - padd.xOfPoint(faceIndex + 1);
+	float y_difference =  0;// ball.get_yPos() - padd.yOfPoint(faceIndex + 1);
+
+	Vec2 r = Vec2(3, 2);
+	Vec2 s = Vec2(-3, 2);
+
+	//float x_cross = (x_difference * ball.get_radius() * (-normalizedY)) - (y_difference * ball.get_radius() * (-normalizedX));
+	float x_cross = (y_difference * r.x - x_difference * r.y);
+	//float depth = x_cross / (padd.xOfPoint(faceIndex) *ball.get_radius() * (-normalizedY) - padd.yOfPoint(faceIndex) * ball.get_radius() * (-normalizedX));
+	float depth = x_cross / (r.x * s.y - r.y * s.x);
+
+	std::cout << "cross: " << x_cross << std::endl;
+	std::cout << "depth: " << depth << std::endl;
+}
 
 bool GameState::paddleRightAndBallCollision(Paddle padd, Ball ball)
 {

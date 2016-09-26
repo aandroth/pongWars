@@ -36,7 +36,7 @@ void Ball::setBall_Normal()
 	xPos = 400;
 	yPos = 300;
 	xVel = 4;
-	yVel = -4;
+	yVel = 4;
 	radius = 20;
 	color = BLACK;
 	texture = sfw::loadTextureMap("./Images/Ball.png");
@@ -65,6 +65,10 @@ void Ball::set_xVel(int newX)
 	{
 		newX = 20 * (newX/abs(newX));
 	}
+	else if (abs(newX) < 4)
+	{
+		newX = 4 * (newX / abs(newX));
+	}
 	xVel = newX;
 }
 void Ball::set_yVel(int newY)
@@ -72,6 +76,10 @@ void Ball::set_yVel(int newY)
 	if (abs(newY) > 20)
 	{
 		newY = 20 * (newY / abs(newY));
+	}
+	else if (abs(newY) < 4)
+	{
+		newY = 4 * (newY / abs(newY));
 	}
 	yVel = newY;
 }
