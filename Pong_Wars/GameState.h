@@ -121,22 +121,22 @@ void GameState::boundaryCollisionController(Ball * ball, int ceilingVal, int flo
 		//gameBall.set_yVel(0);
 		//gameBall.set_xPos(400);
 		//gameBall.set_yPos(300);
-		gameBall.set_xVel(-gameBall.get_xVel());
+		gameBall.set_xVel(-abs(gameBall.get_xVel()));
 	}
 	else if (b_X < 0)
 	{
 		//gameIsActive = false;
-		gameBall.set_xVel(-b_vel_X);
+		gameBall.set_xVel(abs(gameBall.get_xVel()));
 	}
 
 	if (b_Y + gameBall.get_radius() >= ceilingVal)
 	{
-		gameBall.set_yVel(-b_vel_Y);
+		gameBall.set_yVel(-abs(b_vel_Y));
 		gameBall.set_yPos(b_Y - 10);
 	}
 	else if (b_Y - gameBall.get_radius() <= floorVal)
 	{
-		gameBall.set_yVel(-b_vel_Y);
+		gameBall.set_yVel(abs(b_vel_Y));
 		gameBall.set_yPos(b_Y + 10);
 	}
 }
@@ -148,39 +148,45 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 
 	if (padd.collidedWithBall_Outer(ball->get_xPos(), ball->get_yPos(), ball->get_radius()))
 	{
-		int faceIndex = padd.faceOfCollision_Inner(ball->get_xPos(), ball->get_yPos(), ball->get_radius());
-		std::cout << "face: " << faceIndex << std::endl;
-		if (faceIndex != -1)
+		vector<int> faces;
+		faces = padd.facesOfCollision_Inner(ball->get_xPos(), ball->get_yPos(), ball->get_radius());
+		
+		if (faces[0] != -1)
 		{
-			// Get normal of plane
-			float x_Normal = padd.xNormalOfFaceIndex(faceIndex);
-			float y_Normal = -padd.yNormalOfFaceIndex(faceIndex);
-			float normalizedX, normalizedY;
-			std::cout << "x: " << x_Normal << std::endl;
-			std::cout << "y: " << y_Normal << std::endl;
-
-			normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
-			normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
-
 			// Reflect the ball's vector
-			std::cout << "original x: " << ball->get_xVel() << std::endl;
-			std::cout << "original y: " << ball->get_yVel() << std::endl;
 			float oldX = ball->get_xVel(), oldY = ball->get_yVel();
-			float newX = oldX - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedX);
-			float newY = oldY - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedY);
-			ball->set_xVel(newX);
-			ball->set_yVel(newY);
-			std::cout << "reflect x: " << ball->get_xVel() << std::endl;
-			std::cout << "reflect y: " << ball->get_yVel() << std::endl;
-			std::cout << "normalizedX x: " << normalizedX << std::endl;
-			std::cout << "normalizedY y: " << normalizedY << std::endl;
-			std::cout << "normalizedY y: " << normalizedY << std::endl;
-			ball->set_yVel(ball->get_yVel() + padd.get_yVel()*0.05);
 
-			// Move ball out of paddle
-			//moveBallOutsideOfPaddle(*ball, padd, 1);
-			ball->set_xPos(ball->get_xPos() + 14 * normalizedX);
-			ball->set_yPos(ball->get_yPos() + 14 * normalizedY);
+			for (int ii = 0; ii < faces.size(); ++ii)
+			{
+				std::cout << "face: " << faces[ii] << std::endl;
+				// Get normal of plane
+				float x_Normal = padd.xNormalOfFaceIndex(faces[ii]);
+				float y_Normal = -padd.yNormalOfFaceIndex(faces[ii]);
+				float normalizedX, normalizedY;
+				std::cout << "x: " << x_Normal << std::endl;
+				std::cout << "y: " << y_Normal << std::endl;
+
+				normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+				normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+
+				std::cout << "original x: " << ball->get_xVel() << std::endl;
+				std::cout << "original y: " << ball->get_yVel() << std::endl;
+				float newX = oldX - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedX);
+				float newY = oldY - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedY);
+				ball->set_xVel(newX);
+				ball->set_yVel(newY);
+				std::cout << "reflect x: " << ball->get_xVel() << std::endl;
+				std::cout << "reflect y: " << ball->get_yVel() << std::endl;
+				std::cout << "normalizedX x: " << normalizedX << std::endl;
+				std::cout << "normalizedY y: " << normalizedY << std::endl;
+				std::cout << "normalizedY y: " << normalizedY << std::endl;
+				ball->set_yVel(ball->get_yVel() + padd.get_yVel());
+
+				// Move ball out of paddle
+				//moveBallOutsideOfPaddle(*ball, padd, 1);
+				ball->set_xPos(ball->get_xPos() + 14 * normalizedX);
+				ball->set_yPos(ball->get_yPos() + 14 * normalizedY);
+			}
 		}
 	}
 }

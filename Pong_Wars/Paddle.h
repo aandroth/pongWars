@@ -59,7 +59,7 @@ public:
 	unsigned get_texture() const;
 
 	bool collidedWithBall_Outer(int, int, int);
-	int faceOfCollision_Inner(int, int, int);
+	vector<int> facesOfCollision_Inner(int, int, int);
 	int xNormalOfFaceIndex(int index);
 	int yNormalOfFaceIndex(int index);
 	int xOfPoint(int);
@@ -260,8 +260,10 @@ bool Paddle::collidedWithBall_Outer(int b_X, int b_Y, int b_R)
 
 // Returns the index of the face that had a collision with the ball.
 // Returns -1 if no collision detected
-int Paddle::faceOfCollision_Inner(int circlex, int circley, int circleradius)
+vector<int> Paddle::facesOfCollision_Inner(int circlex, int circley, int circleradius)
 {
+	vector<int> faces;
+
 	for (int ii = 0; ii < pointsVec.size()-1; ++ii)
 	{
 		float a = (pointsVec[ii+1].x - pointsVec[ii].x)*(pointsVec[ii + 1].x - pointsVec[ii].x) + (pointsVec[ii + 1].y - pointsVec[ii].y)*(pointsVec[ii+1].y - pointsVec[ii].y);
@@ -277,11 +279,12 @@ int Paddle::faceOfCollision_Inner(int circlex, int circley, int circleradius)
 
 		if ((t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1))
 		{
-			return ii;
+			faces.push_back(ii);
 		}
 	}
-
-	return -1;
+	if (faces.size() == 0)
+		faces.push_back(-1);
+	return faces;
 }
 
 // Returns the index of the face that had a collision with the ball.
