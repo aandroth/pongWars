@@ -109,7 +109,7 @@ void Paddle::setPlayerPaddle_Normal()
 	color = BLUE;
 	xPos = 100;
 	yPos = 350;
-	width = 50;
+	width = 10;
 	height = 100;
 	speed = 8;
 
@@ -125,7 +125,7 @@ void Paddle::setEnemyPaddle_Normal()
 	color = RED;
 	xPos = 700;
 	yPos = 350;
-	width = 50;
+	width = 10;
 	height = 100;
 	speed = 8;
 
@@ -235,21 +235,32 @@ unsigned Paddle::get_texture() const
 
 bool Paddle::collidedWithBall_Outer(int b_X, int b_Y, int b_R)
 {
-	if ((b_X - b_R < height + width && b_X - b_R > yPos) &&
+	bool horizCollision = false, vertCollision = false;
+
+	// right side
+	if ((b_X - b_R < xPos + width && b_X - b_R > xPos) ||
+		(xPos + width < b_X - b_R &&  xPos + width > b_X - b_R))
+	{
+		horizCollision = true;
+	}	// right side, side smaller than radius
+	else if  &&
 		((b_Y - b_R > yPos - height && b_Y - b_R < yPos) || (b_Y + b_R > yPos - height && b_Y + b_R < yPos)))
 	{
 		return true;
-	}	
+	}
+	// left side
 	else if ((b_X + b_R < xPos + width && b_X + b_R > xPos) &&
 		((b_Y - b_R > yPos - height && b_Y - b_R < yPos) || (b_Y + b_R > yPos - height && b_Y + b_R < yPos)))
 	{
 		return true;
 	}
+	// top side
 	else if ((yPos < b_Y + b_R && yPos > b_Y - b_R) &&
 		((xPos > b_X - b_R && xPos < b_X + b_R) || (xPos + width > b_X - b_R && xPos + width < b_X + b_R)))
 	{
 		return true;
 	}
+	// bottom side
 	else if ((yPos - height < b_Y + b_R && yPos - height > b_Y - b_R) &&
 		((xPos > b_X - b_R && xPos < b_X + b_R) || (xPos + width > b_X - b_R && xPos + width < b_X + b_R)))
 	{
@@ -280,6 +291,12 @@ vector<int> Paddle::facesOfCollision_Inner(int circlex, int circley, int circler
 		if ((t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1))
 		{
 			faces.push_back(ii);
+		}
+
+		if (ii == 2)
+		{
+			std::cout << "checked 2" << std::endl;
+			std::cout << "faces.size(): " << faces.size() << std::endl;
 		}
 	}
 	if (faces.size() == 0)

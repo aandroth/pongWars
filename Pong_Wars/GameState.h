@@ -42,8 +42,8 @@ GameState::GameState()
 	gameIsActive = true;
 
 	playerPaddle.setPlayerPaddle_Normal();
-	//enemyPaddle.setEnemyPaddle_Normal();
-	enemyPaddle.setEnemyPaddle_AngleBracket();
+	enemyPaddle.setEnemyPaddle_Normal();
+	//enemyPaddle.setEnemyPaddle_AngleBracket();
 	gameBall.setBall_Normal();
 
 	font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
@@ -153,12 +153,20 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 		
 		if (faces[0] != -1)
 		{
+			for (int ii = 0; ii < faces.size(); ++ii)
+			{
+				std::cout << "faces[" << ii << "]: " << faces[ii] << std::endl;
+			}
+
 			// Reflect the ball's vector
 			float oldX = ball->get_xVel(), oldY = ball->get_yVel();
 
 			for (int ii = 0; ii < faces.size(); ++ii)
 			{
 				std::cout << "face: " << faces[ii] << std::endl;
+				std::cout << "original xPos: " << ball->get_xPos() << std::endl;
+				std::cout << "original yPos: " << ball->get_yPos() << std::endl;
+
 				// Get normal of plane
 				float x_Normal = padd.xNormalOfFaceIndex(faces[ii]);
 				float y_Normal = -padd.yNormalOfFaceIndex(faces[ii]);
@@ -169,23 +177,27 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 				normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
 				normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
 
-				std::cout << "original x: " << ball->get_xVel() << std::endl;
-				std::cout << "original y: " << ball->get_yVel() << std::endl;
+				std::cout << "original xVel: " << ball->get_xVel() << std::endl;
+				std::cout << "original yVel: " << ball->get_yVel() << std::endl;
 				float newX = oldX - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedX);
 				float newY = oldY - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedY);
 				ball->set_xVel(newX);
 				ball->set_yVel(newY);
-				std::cout << "reflect x: " << ball->get_xVel() << std::endl;
-				std::cout << "reflect y: " << ball->get_yVel() << std::endl;
+				std::cout << "reflect xVel: " << ball->get_xVel() << std::endl;
+				std::cout << "reflect yVel: " << ball->get_yVel() << std::endl;
 				std::cout << "normalizedX x: " << normalizedX << std::endl;
-				std::cout << "normalizedY y: " << normalizedY << std::endl;
 				std::cout << "normalizedY y: " << normalizedY << std::endl;
 				ball->set_yVel(ball->get_yVel() + padd.get_yVel());
 
 				// Move ball out of paddle
 				//moveBallOutsideOfPaddle(*ball, padd, 1);
-				ball->set_xPos(ball->get_xPos() + 14 * normalizedX);
-				ball->set_yPos(ball->get_yPos() + 14 * normalizedY);
+				ball->set_xPos(ball->get_xPos() + 15 * normalizedX);
+				ball->set_yPos(ball->get_yPos() + 15 * normalizedY);
+				std::cout << "new xPos: " << ball->get_xPos() << std::endl;
+				std::cout << "new yPos: " << ball->get_yPos() << std::endl;
+
+				std::cout << std::endl;
+				std::cout << std::endl;
 			}
 		}
 	}
