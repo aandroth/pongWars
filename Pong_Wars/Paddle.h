@@ -139,7 +139,7 @@ void Paddle::setEnemyPaddle_AngleBracket()
 {
 	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	color = RED;
-	xPos = 700;
+	xPos = 600;
 	yPos = 400;
 	width = 100;
 	height = 100;
@@ -239,33 +239,35 @@ bool Paddle::collidedWithBall_Outer(int b_X, int b_Y, int b_R)
 
 	// right side
 	if ((b_X - b_R < xPos + width && b_X - b_R > xPos) ||
-		(xPos + width < b_X - b_R &&  xPos + width > b_X - b_R))
+		(xPos + width > b_X - b_R &&  xPos + width < b_X + b_R))
 	{
 		horizCollision = true;
-	}	// right side, side smaller than radius
-	else if  &&
-		((b_Y - b_R > yPos - height && b_Y - b_R < yPos) || (b_Y + b_R > yPos - height && b_Y + b_R < yPos)))
-	{
-		return true;
-	}
+	}	
 	// left side
-	else if ((b_X + b_R < xPos + width && b_X + b_R > xPos) &&
-		((b_Y - b_R > yPos - height && b_Y - b_R < yPos) || (b_Y + b_R > yPos - height && b_Y + b_R < yPos)))
+	else if ((b_X + b_R < xPos + width && b_X + b_R > xPos) ||
+		(xPos > b_X - b_R &&  xPos < b_X + b_R))
 	{
-		return true;
+		horizCollision = true;
 	}
+
 	// top side
-	else if ((yPos < b_Y + b_R && yPos > b_Y - b_R) &&
-		((xPos > b_X - b_R && xPos < b_X + b_R) || (xPos + width > b_X - b_R && xPos + width < b_X + b_R)))
+	if ((yPos > b_Y + b_R && yPos < b_Y - b_R) ||
+		(b_Y - b_R  < yPos && b_Y - b_R > yPos - height))
 	{
-		return true;
+		vertCollision = true;
 	}
 	// bottom side
-	else if ((yPos - height < b_Y + b_R && yPos - height > b_Y - b_R) &&
-		((xPos > b_X - b_R && xPos < b_X + b_R) || (xPos + width > b_X - b_R && xPos + width < b_X + b_R)))
+	else if ((yPos - height > b_Y + b_R && yPos - height < b_Y - b_R) ||
+		(b_Y + b_R  < yPos && b_Y + b_R > yPos - height))
+	{
+		vertCollision = true;
+	}
+
+	if (horizCollision && vertCollision)
 	{
 		return true;
 	}
+
 	return false;
 }
 

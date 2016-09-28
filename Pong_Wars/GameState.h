@@ -42,8 +42,8 @@ GameState::GameState()
 	gameIsActive = true;
 
 	playerPaddle.setPlayerPaddle_Normal();
-	enemyPaddle.setEnemyPaddle_Normal();
-	//enemyPaddle.setEnemyPaddle_AngleBracket();
+	//enemyPaddle.setEnemyPaddle_Normal();
+	enemyPaddle.setEnemyPaddle_AngleBracket();
 	gameBall.setBall_Normal();
 
 	font = sfw::loadTextureMap("./res/tonc_font.png", 16, 6);
