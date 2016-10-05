@@ -19,7 +19,7 @@ int usesRemaining(float manaPool, float costPerCast)
 int main()
 {
 	// Create the window
-	sfw::initContext(800, 600, "NSFW Draw");
+	sfw::initContext(800, 600, "Pong Wars");
 
 	//Create the GameState
 	GameState activeGame;

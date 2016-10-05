@@ -51,6 +51,10 @@ GameState::GameState()
 
 void GameState::update()
 {
+	if (sfw::getKey('R'))
+	{
+		gameBall.set_xPos(400);
+	}
 	// Move Enemy paddle
 	if (enemyPaddle.get_yPos() < gameBall.get_yPos())
 	{
