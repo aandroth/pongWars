@@ -174,8 +174,16 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 				std::cout << "x: " << x_Normal << std::endl;
 				std::cout << "y: " << y_Normal << std::endl;
 
-				normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
-				normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+				if (sqrt(x_Normal*x_Normal + y_Normal*y_Normal) == 0)
+				{
+					normalizedX = (x_Normal / 0.1);
+					normalizedY = (y_Normal / 0.1);
+				}
+				else
+				{
+					normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+					normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
+				}
 
 				std::cout << "original xVel: " << ball->get_xVel() << std::endl;
 				std::cout << "original yVel: " << ball->get_yVel() << std::endl;

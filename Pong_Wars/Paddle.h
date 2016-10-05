@@ -128,7 +128,7 @@ void Paddle::setEnemyPaddle_Normal()
 	width = 10;
 	height = 100;
 	speed = 8;
-
+	;
 	pointsVec.push_back(Vec2(xPos, yPos));
 	pointsVec.push_back(Vec2(xPos, yPos - height));
 	pointsVec.push_back(Vec2(xPos + width, yPos - height));
@@ -146,7 +146,7 @@ void Paddle::setEnemyPaddle_AngleBracket()
 	speed = 8;
 
 	pointsVec.push_back(Vec2(xPos + width / 2, yPos));
-	pointsVec.push_back(Vec2(xPos        ,     yPos - height / 2));
+	pointsVec.push_back(Vec2(xPos,             yPos - height / 2));
 	pointsVec.push_back(Vec2(xPos + width/2,   yPos - height));
 	pointsVec.push_back(Vec2(xPos + width,     yPos - height));
 	pointsVec.push_back(Vec2(xPos + width / 2, yPos - height / 2));

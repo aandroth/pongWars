@@ -61,27 +61,41 @@ int Ball::get_yPos() const
 
 void Ball::set_xVel(int newX)
 {
-	if (abs(newX) > 10)
+	if (newX == 0)
 	{
-		newX = 10 * (newX/abs(newX));
+		xVel = 4;
 	}
-	//else if (abs(newX) < 4)
-	//{
-	//	newX = 4 * (newX / abs(newX));
-	//}
-	xVel = newX;
+	else
+	{
+		if (abs(newX) > 10)
+		{
+			newX = 10 * (newX / abs(newX));
+		}
+		else if (abs(newX) < 4)
+		{
+			newX = 4 * (newX / abs(newX));
+		}
+		xVel = newX;
+	}
 }
 void Ball::set_yVel(int newY)
 {
-	if (abs(newY) > 10)
+	if (newY == 0)
 	{
-		newY = 10 * (newY / abs(newY));
+		yVel = 0;
 	}
-	//else if (abs(newY) < 4)
-	//{
-	//	newY = 4 * (newY / abs(newY));
-	//}
-	yVel = newY;
+	else
+	{
+		if (abs(newY) > 10)
+		{
+			newY = 10 * (newY / abs(newY));
+		}
+		//else if (abs(newY) < 4)
+		//{
+		//	newY = 4 * (newY / abs(newY));
+		//}
+		yVel = newY;
+	}
 }
 int Ball::get_xVel() const
 {
