@@ -105,12 +105,10 @@ void GameState::draw()
 
 	sfw::drawCircle(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), 12, gameBall.get_color());
 	//sfw::drawTexture(gameBall.get_texture(), gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), gameBall.get_radius());
-	//fw::drawLine(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_xVel()*2 + gameBall.get_xPos(), gameBall.get_yVel()*2 + gameBall.get_yPos(), RED);
+	sfw::drawLine(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_xVel() + gameBall.get_xPos(), gameBall.get_yVel() + gameBall.get_yPos(), RED);
 	sfw::drawString(font, std::to_string(playerPoints).c_str(), 0, 600, 48, 48, 0, ' ');
 	//sfw::drawString(font, std::to_string(gameBall.get_xVel()).c_str(), 0, 600, 48, 48, 0, ' ');
 	//sfw::drawString(font, std::to_string(gameBall.get_yVel()).c_str(), 0, 500, 48, 48, 0, ' ');
-
-
 }
 
 void GameState::boundaryCollisionController(Ball * ball, int ceilingVal, int floorVal)
@@ -154,7 +152,8 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 	{
 		vector<int> faces;
 		faces = padd.facesOfCollision_Inner(ball->get_xPos(), ball->get_yPos(), ball->get_radius());
-		
+		std::cout << "faces.size(): " << faces.size() << std::endl;
+
 		if (faces[0] != -1)
 		{
 			for (int ii = 0; ii < faces.size(); ++ii)
@@ -211,6 +210,10 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 				std::cout << std::endl;
 				std::cout << std::endl;
 			}
+		}
+		else
+		{
+			std::cout << "no inner faces hit" << std::endl;
 		}
 	}
 }

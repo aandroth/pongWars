@@ -235,40 +235,43 @@ unsigned Paddle::get_texture() const
 
 bool Paddle::collidedWithBall_Outer(int b_X, int b_Y, int b_R)
 {
-	bool horizCollision = false, vertCollision = false;
-
+	std::cout << "b_Y + b_R: " << b_Y + b_R << std::endl;
+	std::cout << "b_Y - b_R: " << b_Y - b_R << std::endl;
+	std::cout << "b_Y: " << b_Y << std::endl;
+	std::cout << "yPos: " << yPos << std::endl;
+	std::cout << "yPos - height: " << yPos - height << std::endl;
 	// right side
-	if ((b_X - b_R < xPos + width && b_X - b_R > xPos) ||
-		(xPos + width > b_X - b_R &&  xPos + width < b_X + b_R))
+	if (b_X - b_R > xPos + width)
 	{
-		horizCollision = true;
+		//std::cout << "No collision detected" << std::endl;
+		//system("pause");
+		return false;
 	}	
 	// left side
-	else if ((b_X + b_R < xPos + width && b_X + b_R > xPos) ||
-		(xPos > b_X - b_R &&  xPos < b_X + b_R))
+	else if (b_X + b_R < xPos)
 	{
-		horizCollision = true;
+		//std::cout << "No collision detected" << std::endl;
+		//system("pause");
+		return false;
 	}
-
 	// top side
-	if ((yPos > b_Y + b_R && yPos < b_Y - b_R) ||
-		(b_Y - b_R  < yPos && b_Y - b_R > yPos - height))
+	else if (b_Y - b_R > yPos)
 	{
-		vertCollision = true;
+		//std::cout << "No collision detected" << std::endl;
+		//system("pause");
+		return false;
 	}
 	// bottom side
-	else if ((yPos - height > b_Y + b_R && yPos - height < b_Y - b_R) ||
-		(b_Y + b_R  < yPos && b_Y + b_R > yPos - height))
+	else if (b_Y + b_R < yPos - height)
 	{
-		vertCollision = true;
+		//std::cout << "No collision detected" << std::endl;
+		//system("pause");
+		return false;
 	}
 
-	if (horizCollision && vertCollision)
-	{
-		return true;
-	}
-
-	return false;
+	//std::cout << "Collision detected" << std::endl;
+	//system("pause");
+	return true;
 }
 
 // Returns the index of the face that had a collision with the ball.
@@ -290,17 +293,27 @@ vector<int> Paddle::facesOfCollision_Inner(int circlex, int circley, int circler
 		//t1 = (-b + sqrt(b*b - 4 * a*c)) / (2 * a);
 		//t2 = (-b - sqrt(b*b - 4 * a*c)) / (2 * a);
 
-		if ((t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1))
+		if ((t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1) || (t1 >= 1 && t2 <= 0))
 		{
 			faces.push_back(ii);
 		}
-
-		if (ii == 2)
-		{
-			std::cout << "checked 2" << std::endl;
-			std::cout << "faces.size(): " << faces.size() << std::endl;
-		}
 	}
+
+	// Check the face from node pointsVec.size()-1 to node 0
+	float a = (pointsVec[0].x - pointsVec[pointsVec.size()-1].x)*(pointsVec[0].x - pointsVec[pointsVec.size()-1].x) + (pointsVec[0].y - pointsVec[pointsVec.size()-1].y)*(pointsVec[0].y - pointsVec[pointsVec.size()-1].y);
+	float b = 2 * (pointsVec[0].x - pointsVec[pointsVec.size()-1].x)*(pointsVec[pointsVec.size()-1].x - circlex) + 2 * (pointsVec[0].y - pointsVec[pointsVec.size()-1].y)*(pointsVec[pointsVec.size()-1].y - circley);
+	float c = (pointsVec[pointsVec.size()-1].x - circlex)*(pointsVec[pointsVec.size()-1].x - circlex) + (pointsVec[pointsVec.size()-1].y - circley)*(pointsVec[pointsVec.size()-1].y - circley) - (circleradius*circleradius);
+	float t1 = (-b + sqrt(b*b - 4 * a*c)) / (2 * a);
+	float t2 = (-b - sqrt(b*b - 4 * a*c)) / (2 * a);
+
+	std::cout << "t1: " << t1 << std::endl;
+	std::cout << "t2: " << t2 << std::endl;
+
+	if ((t1 >= 0 && t1 <= 1) || (t2 >= 0 && t2 <= 1) || (t1 >= 1 && t2 <= 0))
+	{
+		faces.push_back(pointsVec.size() - 1);
+	}
+
 	if (faces.size() == 0)
 		faces.push_back(-1);
 	return faces;

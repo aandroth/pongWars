@@ -4,32 +4,36 @@ c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(158): warning C4018: '<': signed/unsigned mismatch
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(160): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(162): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(280): warning C4018: '<': signed/unsigned mismatch
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(282): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(283): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(284): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(283): warning C4018: '<': signed/unsigned mismatch
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(285): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(286): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(287): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(303): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(304): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\Paddle.h(305): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(97): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(98): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(106): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(160): warning C4018: '<': signed/unsigned mismatch
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(166): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(168): warning C4018: '<': signed/unsigned mismatch
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(175): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(108): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(161): warning C4018: '<': signed/unsigned mismatch
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(167): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(169): warning C4018: '<': signed/unsigned mismatch
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(176): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(183): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(177): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(184): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(194): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(185): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(195): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(196): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(196): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(197): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(206): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(198): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(207): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\aaron.andrews\documents\visual studio 2015\projects\pong_wars\pong_wars\GameState.h(208): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 Main.cpp(16): warning C4244: 'return': conversion from 'float' to 'int', possible loss of data
   Generating code
   2 of 932 functions ( 0.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    10 functions had inline decision re-evaluated but remain unchanged
+    2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 sfw.lib(sfwdraw.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw.lib(sfwdraw.obj)' or at 'C:\Users\aaron.andrews\Documents\Visual Studio 2015\Projects\Pong_Wars\Release\nsfw2draw.pdb'; linking object as if no debug info
 sfw.lib(gl_core_4_4.obj) : warning LNK4099: PDB 'nsfw2draw.pdb' was not found with 'sfw.lib(gl_core_4_4.obj)' or at 'C:\Users\aaron.andrews\Documents\Visual Studio 2015\Projects\Pong_Wars\Release\nsfw2draw.pdb'; linking object as if no debug info
