@@ -6,23 +6,13 @@ using std::string;
 #include <iostream>
 #include <vector>
 using std::vector;
-
-struct Vec2
-{
-	int x, y;
-	Vec2(int, int);
-};
-
-Vec2::Vec2(int newX, int newY)
-{
-	x = newX;
-	y = newY;
-}
+#include "Vec2.h"
 
 class Paddle
 {
 private:
-	int xPos, yPos, yVel, width, height, speed;
+	Vec2 pos, vel, dim;
+	int speed;
 	unsigned int color, texture;
 	vector<Vec2> pointsVec;
 
@@ -58,47 +48,46 @@ public:
 	unsigned get_color() const;
 	unsigned get_texture() const;
 
-	bool collidedWithBall_Outer(int, int, int);
-	vector<int> facesOfCollision_Inner(int, int, int);
-	int xNormalOfFaceIndex(int index);
-	int yNormalOfFaceIndex(int index);
+	bool collidedWithBall_Outer(Vec2, int);
+	vector<int> facesOfCollision_Inner(Vec2, int);
+	Vec2 perpVecOfFaceIndex(int index);
 	int xOfPoint(int);
 	int yOfPoint(int);
 };
 
 void Paddle::moveUp(int ceilingValue)
 {
-	if (yPos >= ceilingValue)
+	if (pos.y >= ceilingValue)
 	{
-		yPos = ceilingValue;
-		yVel = 0;
+		pos.y = ceilingValue;
+		vel.y = 0;
 	}
 	else
 	{
-		yVel = speed;
-		yPos += yVel;
+		vel.y = speed;
+		pos.y += vel.y;
 		for (int ii = 0; ii < pointsVec.size(); ++ii)
 		{
-			pointsVec[ii].y += yVel;
+			pointsVec[ii].y += vel.y;
 		}
 	}
-	std::cout << yVel << std::endl;
+	std::cout << vel.y << std::endl;
 }
 
 void Paddle::moveDown(int floorValue)
 {
-	if (yPos - height <= floorValue)
+	if (pos.y - dim.y <= floorValue)
 	{
-		yPos = height + floorValue;
-		yVel = 0;
+		pos.y = dim.y + floorValue;
+		vel.y = 0;
 	}
 	else
 	{
-		yVel = -speed;
-		yPos += yVel;
+		vel.y = -speed;
+		pos.y += vel.y;
 		for (int ii = 0; ii < pointsVec.size(); ++ii)
 		{
-			pointsVec[ii].y += yVel;
+			pointsVec[ii].y += vel.y;
 		}
 	}
 }
@@ -107,50 +96,50 @@ void Paddle::setPlayerPaddle_Normal()
 {
 	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	color = BLUE;
-	xPos = 100;
-	yPos = 350;
-	width = 10;
-	height = 100;
+	pos.x = 100;
+	pos.y = 350;
+	dim.x = 10;
+	dim.y = 100;
 	speed = 8;
 
-	pointsVec.push_back(Vec2(xPos,         yPos));
-	pointsVec.push_back(Vec2(xPos,         yPos - height));
-	pointsVec.push_back(Vec2(xPos + width, yPos - height));
-	pointsVec.push_back(Vec2(xPos + width, yPos));
+	pointsVec.push_back(Vec2(pos.x,         pos.y));
+	pointsVec.push_back(Vec2(pos.x,         pos.y - dim.y));
+	pointsVec.push_back(Vec2(pos.x + dim.x, pos.y - dim.y));
+	pointsVec.push_back(Vec2(pos.x + dim.x, pos.y));
 }
 
 void Paddle::setEnemyPaddle_Normal()
 {
 	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	color = RED;
-	xPos = 700;
-	yPos = 350;
-	width = 10;
-	height = 100;
+	pos.x = 700;
+	pos.y = 350;
+	dim.x = 10;
+	dim.y = 100;
 	speed = 8;
 	;
-	pointsVec.push_back(Vec2(xPos, yPos));
-	pointsVec.push_back(Vec2(xPos, yPos - height));
-	pointsVec.push_back(Vec2(xPos + width, yPos - height));
-	pointsVec.push_back(Vec2(xPos + width, yPos));
+	pointsVec.push_back(Vec2(pos.x,         pos.y));
+	pointsVec.push_back(Vec2(pos.x,         pos.y - dim.y));
+	pointsVec.push_back(Vec2(pos.x + dim.x, pos.y - dim.y));
+	pointsVec.push_back(Vec2(pos.x + dim.x, pos.y));
 }
 
 void Paddle::setEnemyPaddle_AngleBracket()
 {
 	texture = sfw::loadTextureMap("./Images/Paddle.png");
 	color = RED;
-	xPos = 600;
-	yPos = 400;
-	width = 100;
-	height = 100;
+	pos.x = 600;
+	pos.y = 400;
+	dim.x = 100;
+	dim.y = 100;
 	speed = 8;
 
-	pointsVec.push_back(Vec2(xPos + width / 2, yPos));
-	pointsVec.push_back(Vec2(xPos,             yPos - height / 2));
-	pointsVec.push_back(Vec2(xPos + width/2,   yPos - height));
-	pointsVec.push_back(Vec2(xPos + width,     yPos - height));
-	pointsVec.push_back(Vec2(xPos + width / 2, yPos - height / 2));
-	pointsVec.push_back(Vec2(xPos + width,     yPos));
+	pointsVec.push_back(Vec2(pos.x + dim.x / 2, pos.y));
+	pointsVec.push_back(Vec2(pos.x,             pos.y - dim.y / 2));
+	pointsVec.push_back(Vec2(pos.x + dim.x /2,  pos.y - dim.y));
+	pointsVec.push_back(Vec2(pos.x + dim.x,     pos.y - dim.y));
+	pointsVec.push_back(Vec2(pos.x + dim.x / 2, pos.y - dim.y / 2));
+	pointsVec.push_back(Vec2(pos.x + dim.x,     pos.y));
 }
 
 void Paddle::drawPaddle()
@@ -166,45 +155,45 @@ void Paddle::drawPaddle()
 
 void Paddle::set_xPos(int newX)
 {
-	xPos = newX;
+	pos.x = newX;
 }
 void Paddle::set_yPos(int newY)
 {
-	yPos = newY;
+	pos.y = newY;
 }
 int Paddle::get_xPos() const
 {
-	return xPos;
+	return pos.x;
 }
 int Paddle::get_yPos() const
 {
-	return yPos;
+	return pos.y;
 }
 
 void Paddle::set_yVel(int newY)
 {
-	yVel = newY;
+	vel.y = newY;
 }
 int Paddle::get_yVel() const
 {
-	return yVel;
+	return vel.y;
 }
 
 void Paddle::set_width(int newW)
 {
-	width = newW;
+	dim.x = newW;
 }
 void Paddle::set_height(int newH)
 {
-	height = newH;
+	dim.y = newH;
 }
 int Paddle::get_width() const
 {
-	return width;
+	return dim.x;
 }
 int Paddle::get_height() const
 {
-	return height;
+	return dim.y;
 }
 
 void Paddle::set_speed(int newS)
@@ -233,36 +222,38 @@ unsigned Paddle::get_texture() const
 	return texture;
 }
 
-bool Paddle::collidedWithBall_Outer(int b_X, int b_Y, int b_R)
+bool Paddle::collidedWithBall_Outer(Vec2 ballPos, int b_R)
 {
-	std::cout << "b_Y + b_R: " << b_Y + b_R << std::endl;
-	std::cout << "b_Y - b_R: " << b_Y - b_R << std::endl;
-	std::cout << "b_Y: " << b_Y << std::endl;
-	std::cout << "yPos: " << yPos << std::endl;
-	std::cout << "yPos - height: " << yPos - height << std::endl;
+	//std::cout << "b_Y + b_R: "     << ballPos.y + b_R << std::endl;
+	//std::cout << "b_Y - b_R: "     << ballPos.y - b_R << std::endl;
+	//std::cout << "b_Y: "           << ballPos.y << std::endl;
+	//std::cout << "yPos: "          << pos.y << std::endl;
+	//std::cout << "yPos - height: " << pos.y - dim.y << std::endl;
+	//std::cout << "No collision detected" << std::endl;
+	//system("pause");
 	// right side
-	if (b_X - b_R > xPos + width)
+	if (ballPos.x - b_R > pos.x + dim.x)
 	{
 		//std::cout << "No collision detected" << std::endl;
 		//system("pause");
 		return false;
 	}	
 	// left side
-	else if (b_X + b_R < xPos)
+	else if (ballPos.x + b_R < pos.x)
 	{
 		//std::cout << "No collision detected" << std::endl;
 		//system("pause");
 		return false;
 	}
 	// top side
-	else if (b_Y - b_R > yPos)
+	else if (ballPos.y - b_R > pos.y)
 	{
 		//std::cout << "No collision detected" << std::endl;
 		//system("pause");
 		return false;
 	}
 	// bottom side
-	else if (b_Y + b_R < yPos - height)
+	else if (ballPos.y + b_R < pos.y - dim.y)
 	{
 		//std::cout << "No collision detected" << std::endl;
 		//system("pause");
@@ -276,15 +267,15 @@ bool Paddle::collidedWithBall_Outer(int b_X, int b_Y, int b_R)
 
 // Returns the index of the face that had a collision with the ball.
 // Returns -1 if no collision detected
-vector<int> Paddle::facesOfCollision_Inner(int circlex, int circley, int circleradius)
+vector<int> Paddle::facesOfCollision_Inner(Vec2 ballPos, int circleradius)
 {
 	vector<int> faces;
 
 	for (int ii = 0; ii < pointsVec.size()-1; ++ii)
 	{
 		float a = (pointsVec[ii+1].x - pointsVec[ii].x)*(pointsVec[ii + 1].x - pointsVec[ii].x) + (pointsVec[ii + 1].y - pointsVec[ii].y)*(pointsVec[ii+1].y - pointsVec[ii].y);
-		float b = 2 * (pointsVec[ii+1].x - pointsVec[ii].x)*(pointsVec[ii].x - circlex) + 2 * (pointsVec[ii+1].y - pointsVec[ii].y)*(pointsVec[ii].y - circley);
-		float c = (pointsVec[ii].x - circlex)*(pointsVec[ii].x - circlex) + (pointsVec[ii].y - circley)*(pointsVec[ii].y - circley) - (circleradius*circleradius);
+		float b = 2 * (pointsVec[ii+1].x - pointsVec[ii].x)*(pointsVec[ii].x - ballPos.x) + 2 * (pointsVec[ii+1].y - pointsVec[ii].y)*(pointsVec[ii].y - ballPos.y);
+		float c = (pointsVec[ii].x - ballPos.x)*(pointsVec[ii].x - ballPos.x) + (pointsVec[ii].y - ballPos.y)*(pointsVec[ii].y - ballPos.y) - (circleradius*circleradius);
 		float t1 = (-b + sqrt(b*b - 4 * a*c)) / (2 * a);
 		float t2 = (-b - sqrt(b*b - 4 * a*c)) / (2 * a);
 		//a = (linex2 - linex1)*(linex2 - linex1) + (liney2 - liney1)*(liney2 - liney1);
@@ -300,9 +291,9 @@ vector<int> Paddle::facesOfCollision_Inner(int circlex, int circley, int circler
 	}
 
 	// Check the face from node pointsVec.size()-1 to node 0
-	float a = (pointsVec[0].x - pointsVec[pointsVec.size()-1].x)*(pointsVec[0].x - pointsVec[pointsVec.size()-1].x) + (pointsVec[0].y - pointsVec[pointsVec.size()-1].y)*(pointsVec[0].y - pointsVec[pointsVec.size()-1].y);
-	float b = 2 * (pointsVec[0].x - pointsVec[pointsVec.size()-1].x)*(pointsVec[pointsVec.size()-1].x - circlex) + 2 * (pointsVec[0].y - pointsVec[pointsVec.size()-1].y)*(pointsVec[pointsVec.size()-1].y - circley);
-	float c = (pointsVec[pointsVec.size()-1].x - circlex)*(pointsVec[pointsVec.size()-1].x - circlex) + (pointsVec[pointsVec.size()-1].y - circley)*(pointsVec[pointsVec.size()-1].y - circley) - (circleradius*circleradius);
+	float a = (pointsVec[0].x - pointsVec[pointsVec.size() - 1].x)*(pointsVec[0].x - pointsVec[pointsVec.size() - 1].x) + (pointsVec[0].y - pointsVec[pointsVec.size() - 1].y)*(pointsVec[0].y - pointsVec[pointsVec.size() - 1].y);
+	float b = 2 * (pointsVec[0].x - pointsVec[pointsVec.size() - 1].x)*(pointsVec[pointsVec.size() - 1].x - ballPos.x) + 2 * (pointsVec[0].y - pointsVec[pointsVec.size() - 1].y)*(pointsVec[pointsVec.size() - 1].y - ballPos.y);
+	float c = (pointsVec[pointsVec.size() - 1].x - ballPos.x)*(pointsVec[pointsVec.size() - 1].x - ballPos.x) + (pointsVec[pointsVec.size() - 1].y - ballPos.y)*(pointsVec[pointsVec.size() - 1].y - ballPos.y) - (circleradius*circleradius);
 	float t1 = (-b + sqrt(b*b - 4 * a*c)) / (2 * a);
 	float t2 = (-b - sqrt(b*b - 4 * a*c)) / (2 * a);
 
@@ -321,26 +312,16 @@ vector<int> Paddle::facesOfCollision_Inner(int circlex, int circley, int circler
 
 // Returns the index of the face that had a collision with the ball.
 // Returns -1 if no collision detected
-int Paddle::xNormalOfFaceIndex(int index)
+Vec2 Paddle::perpVecOfFaceIndex(int index)
 {
 	if (index != pointsVec.size()-1)
 	{
-		std::cout << "p1_x: " << pointsVec[index].x << ", p2_x: " << pointsVec[index + 1].x << std::endl;
-		return pointsVec[index + 1].y - pointsVec[index].y;
+		return Vec2(pointsVec[index + 1].y - pointsVec[index].y, 
+					-(pointsVec[index + 1].x - pointsVec[index].x));
 	}
 
-	return pointsVec[0].y - pointsVec[index].y;
-}
-
-int Paddle::yNormalOfFaceIndex(int index)
-{
-	if (index != pointsVec.size() - 1)
-	{
-		std::cout << "p1_y: " << pointsVec[index].y << ", p2_y: " << pointsVec[index + 1].y << std::endl;
-		return pointsVec[index + 1].x - pointsVec[index].x;
-	}
-
-	return pointsVec[0].x - pointsVec[index].x;
+	return Vec2(pointsVec[0].y - pointsVec[index].y,
+				-(pointsVec[0].x - pointsVec[index].x));
 }
 
 int Paddle::xOfPoint(int index)

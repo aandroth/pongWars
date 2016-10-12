@@ -56,11 +56,11 @@ void GameState::update()
 		gameBall.set_xPos(400);
 	}
 	// Move Enemy paddle
-	if (enemyPaddle.get_yPos() < gameBall.get_yPos())
+	if (enemyPaddle.get_yPos() < gameBall.getPos().y)
 	{
 		enemyPaddle.moveUp(ceilingValue);
 	}
-	else if (enemyPaddle.get_yPos() - enemyPaddle.get_height() > gameBall.get_yPos())
+	else if (enemyPaddle.get_yPos() - enemyPaddle.get_height() > gameBall.getPos().y)
 	{
 		enemyPaddle.moveDown(floorValue);
 	}
@@ -87,15 +87,14 @@ void GameState::update()
 	paddleCollisionController(enemyPaddle, &gameBall);
 	boundaryCollisionController(&gameBall, ceilingValue, floorValue);
 
-	gameBall.set_xPos(gameBall.get_xPos() + gameBall.get_xVel());
-	gameBall.set_yPos(gameBall.get_yPos() + gameBall.get_yVel());
+	gameBall.setPos(gameBall.getPos() + gameBall.getVel());
 }
 
 void GameState::draw()
 {
 	sfw::drawTexture(playerPaddle.get_texture(), playerPaddle.get_xPos(), playerPaddle.get_yPos(), playerPaddle.get_width(), playerPaddle.get_height(), 0, false, 0, WHITE);
 	sfw::drawTexture(enemyPaddle.get_texture(), enemyPaddle.get_xPos(), enemyPaddle.get_yPos(), enemyPaddle.get_width(), enemyPaddle.get_height(), 0, false, 0, RED);
-	sfw::drawCircle(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), 12, gameBall.get_color());
+	sfw::drawCircle(gameBall.getPos().x, gameBall.getPos().y, gameBall.get_radius(), 12, gameBall.get_color());
 
 	sfw::drawTexture(background, 400, 300, 800, 600);
 	//sfw::drawTexture(playerPaddle.get_texture(), playerPaddle.get_xPos(), playerPaddle.get_yPos(), playerPaddle.get_width(), playerPaddle.get_height(), 0, false, 0, CYAN);
@@ -103,9 +102,9 @@ void GameState::draw()
 	playerPaddle.drawPaddle();
 	enemyPaddle.drawPaddle();
 
-	sfw::drawCircle(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), 12, gameBall.get_color());
+	sfw::drawCircle(gameBall.getPos().x, gameBall.getPos().y, gameBall.get_radius(), 12, gameBall.get_color());
 	//sfw::drawTexture(gameBall.get_texture(), gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_radius(), gameBall.get_radius());
-	sfw::drawLine(gameBall.get_xPos(), gameBall.get_yPos(), gameBall.get_xVel() + gameBall.get_xPos(), gameBall.get_yVel() + gameBall.get_yPos(), RED);
+	sfw::drawLine(gameBall.getPos().x, gameBall.getPos().y, gameBall.get_xVel() + gameBall.getPos().x, gameBall.get_yVel() + gameBall.getPos().y, RED);
 	sfw::drawString(font, std::to_string(playerPoints).c_str(), 0, 600, 48, 48, 0, ' ');
 	//sfw::drawString(font, std::to_string(gameBall.get_xVel()).c_str(), 0, 600, 48, 48, 0, ' ');
 	//sfw::drawString(font, std::to_string(gameBall.get_yVel()).c_str(), 0, 500, 48, 48, 0, ' ');
@@ -113,10 +112,7 @@ void GameState::draw()
 
 void GameState::boundaryCollisionController(Ball * ball, int ceilingVal, int floorVal)
 {
-	int b_X = ball->get_xPos(), b_vel_X = ball->get_xVel();
-	int b_Y = ball->get_yPos(), b_vel_Y = ball->get_yVel();
-
-	if (b_X + gameBall.get_radius() > 800)
+	if (ball->getPos().x + gameBall.get_radius() > 800)
 	{
 		//playerPoints += 1;
 		//gameBall.set_xVel(4);
@@ -125,33 +121,30 @@ void GameState::boundaryCollisionController(Ball * ball, int ceilingVal, int flo
 		//gameBall.set_yPos(300);
 		gameBall.set_xVel(-abs(gameBall.get_xVel()));
 	}
-	else if (b_X < 0)
+	else if (ball->getPos().x < 0)
 	{
 		//gameIsActive = false;
 		gameBall.set_xVel(abs(gameBall.get_xVel()));
 	}
 
-	if (b_Y + gameBall.get_radius() >= ceilingVal)
+	if (ball->getPos().y + gameBall.get_radius() >= ceilingVal)
 	{
-		gameBall.set_yVel(-abs(b_vel_Y));
-		gameBall.set_yPos(b_Y - 10);
+		gameBall.set_yVel(-abs(ball->getVel().y));
+		gameBall.set_yPos(gameBall.getPos().y - 10);
 	}
-	else if (b_Y - gameBall.get_radius() <= floorVal)
+	else if (ball->getPos().y - gameBall.get_radius() <= floorVal)
 	{
-		gameBall.set_yVel(abs(b_vel_Y));
-		gameBall.set_yPos(b_Y + 10);
+		gameBall.set_yVel(abs(ball->getPos().y));
+		gameBall.set_yPos(gameBall.getPos().y + 10);
 	}
 }
 
 void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 {
-	int b_X = ball->get_xPos(), b_vel_X = ball->get_xVel();
-	int b_Y = ball->get_yPos(), b_vel_Y = ball->get_yVel();
-
-	if (padd.collidedWithBall_Outer(ball->get_xPos(), ball->get_yPos(), ball->get_radius()))
+	if (padd.collidedWithBall_Outer(ball->getPos(), ball->get_radius()))
 	{
 		vector<int> faces;
-		faces = padd.facesOfCollision_Inner(ball->get_xPos(), ball->get_yPos(), ball->get_radius());
+		faces = padd.facesOfCollision_Inner(ball->getPos(), ball->get_radius());
 		std::cout << "faces.size(): " << faces.size() << std::endl;
 
 		if (faces[0] != -1)
@@ -162,58 +155,44 @@ void GameState::paddleCollisionController(Paddle padd, Ball * ball)
 			}
 
 			// Reflect the ball's vector
-			float oldX = ball->get_xVel(), oldY = ball->get_yVel();
+			//float oldX = ball->get_xVel(), oldY = ball->get_yVel();
+			Vec2 oldVel = ball->getVel();
 
 			for (int ii = 0; ii < faces.size(); ++ii)
 			{
 				std::cout << "face: " << faces[ii] << std::endl;
-				std::cout << "original xPos: " << ball->get_xPos() << std::endl;
-				std::cout << "original yPos: " << ball->get_yPos() << std::endl;
 
+				std::cout << "ball y: " << ball->getPos().y << std::endl;
 				// Get normal of plane
-				float x_Normal = padd.xNormalOfFaceIndex(faces[ii]);
-				float y_Normal = -padd.yNormalOfFaceIndex(faces[ii]);
-				float normalizedX, normalizedY;
-				std::cout << "x: " << x_Normal << std::endl;
-				std::cout << "y: " << y_Normal << std::endl;
+				Vec2 normalVec = normal(padd.perpVecOfFaceIndex(faces[ii]));
 
-				if (sqrt(x_Normal*x_Normal + y_Normal*y_Normal) == 0)
-				{
-					normalizedX = (x_Normal / 0.1);
-					normalizedY = (y_Normal / 0.1);
-				}
-				else
-				{
-					normalizedX = (x_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
-					normalizedY = (y_Normal / sqrt(x_Normal*x_Normal + y_Normal*y_Normal));
-				}
+				std::cout << "ball->get_xVel(): " << ball->get_xVel() << std::endl;
+				std::cout << "ball->get_yVel(): " << ball->get_yVel() << std::endl;
+				Vec2 newVel = Vec2((ball->get_xVel() - (2.0 * (dot(oldVel, normalVec) * normalVec.x))),
+								   (ball->get_yVel() - (2.0 * (dot(oldVel, normalVec) * normalVec.y))));
 
-				std::cout << "original xVel: " << ball->get_xVel() << std::endl;
-				std::cout << "original yVel: " << ball->get_yVel() << std::endl;
-				float newX = oldX - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedX);
-				float newY = oldY - (2.0 * (oldX*normalizedX + oldY*normalizedY)*normalizedY);
-				ball->set_xVel(newX);
-				ball->set_yVel(newY);
+				std::cout << "dot(oldVel, normalVec): " << dot(oldVel, normalVec) << std::endl;
+				std::cout << "normalVec.y: " << normalVec.y << std::endl;
+				std::cout << "(dot(oldVel, normalVec) * normalVec.y): " << (dot(oldVel, normalVec) * normalVec.y) << std::endl;
+				std::cout << "(2.0 * (dot(oldVel, normalVec) * normalVec.y)): " << (2.0 * (dot(oldVel, normalVec) * normalVec.y)) << std::endl;
+				std::cout << "(oldVel.y - (2.0 * (dot(oldVel, normalVec) * normalVec.y))): " << (oldVel.y - (2.0 * (dot(oldVel, normalVec) * normalVec.y))) << std::endl;
+
+				//oldVel.y - (2.0 * (dot(oldVel, normalVec) * normalVec.y)))
+
+				ball->setVel(newVel);
 				std::cout << "reflect xVel: " << ball->get_xVel() << std::endl;
 				std::cout << "reflect yVel: " << ball->get_yVel() << std::endl;
-				std::cout << "normalizedX x: " << normalizedX << std::endl;
-				std::cout << "normalizedY y: " << normalizedY << std::endl;
 				ball->set_yVel(ball->get_yVel() + padd.get_yVel());
 
 				// Move ball out of paddle
 				//moveBallOutsideOfPaddle(*ball, padd, 1);
-				ball->set_xPos(ball->get_xPos() + 15 * normalizedX);
-				ball->set_yPos(ball->get_yPos() + 15 * normalizedY);
-				std::cout << "new xPos: " << ball->get_xPos() << std::endl;
-				std::cout << "new yPos: " << ball->get_yPos() << std::endl;
+				std::cout << "normalVec*15.0: " << (normalVec.y*15.0) << std::endl;
+				ball->setPos(ball->getPos() + normalVec*15.0);
+				std::cout << "ball y: " << ball->getPos().y << std::endl;
 
 				std::cout << std::endl;
 				std::cout << std::endl;
 			}
-		}
-		else
-		{
-			std::cout << "no inner faces hit" << std::endl;
 		}
 	}
 }
@@ -245,75 +224,6 @@ void GameState::moveBallOutsideOfPaddle(Ball ball, Paddle padd, int faceIndex)
 	std::cout << "cross: " << x_cross << std::endl;
 	std::cout << "depth: " << depth << std::endl;
 }
-
-bool GameState::paddleRightAndBallCollision(Paddle padd, Ball ball)
-{
-	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
-	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
-	int b_R = ball.get_radius();
-
-	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
-	int p_W = padd.get_width(), p_H = padd.get_height();
-
-	if ((b_X - b_R < p_X + p_W && b_X - b_R > p_X) &&
-		((b_Y - b_R > p_Y - p_H && b_Y - b_R < p_Y) || (b_Y + b_R > p_Y - p_H && b_Y + b_R < p_Y)))
-	{
-		return true;
-	}
-	return false;
-}
-
-bool GameState::paddleLeftAndBallCollision(Paddle padd, Ball ball)
-{
-	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
-	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
-	int b_R = ball.get_radius();
-
-	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
-	int p_W = padd.get_width(), p_H = padd.get_height();
-
-	if ((b_X + b_R < p_X + p_W && b_X + b_R > p_X) &&
-		((b_Y - b_R > p_Y - p_H && b_Y - b_R < p_Y) || (b_Y + b_R > p_Y - p_H && b_Y + b_R < p_Y)))
-	{
-		return true;
-	}
-	return false;
-}
-
-bool GameState::paddleTopAndBallCollision(Paddle padd, Ball ball)
-{
-	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
-	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
-	int b_R = ball.get_radius();
-
-	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
-	int p_W = padd.get_width(), p_H = padd.get_height();
-
-	if ((p_Y < b_Y + b_R && p_Y > b_Y - b_R) &&
-		((p_X > b_X - b_R && p_X < b_X + b_R) || (p_X + p_W > b_X - b_R && p_X + p_W < b_X + b_R)))
-	{
-		return true;
-	}
-	return false;
-}
-
-bool GameState::paddleBottomAndBallCollision(Paddle padd, Ball ball)
-{
-	int b_X = ball.get_xPos(), b_vel_X = ball.get_xVel();
-	int b_Y = ball.get_yPos(), b_vel_Y = ball.get_yVel();
-	int b_R = ball.get_radius();
-
-	int p_X = padd.get_xPos(), p_Y = padd.get_yPos();
-	int p_W = padd.get_width(), p_H = padd.get_height();
-
-	if ((p_Y - p_H < b_Y + b_R && p_Y - p_H > b_Y - b_R) &&
-		((p_X > b_X - b_R && p_X < b_X + b_R) || (p_X + p_W > b_X - b_R && p_X + p_W < b_X + b_R)))
-	{
-		return true;
-	}
-	return false;
-}
-
 
 bool GameState::gameplayIsActive()
 {
